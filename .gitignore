@@ -1,0 +1,25 @@
+# Ignore environment files
+.env
+
+# Strapi system files
+.strapi/
+.strapi-updater.json
+.tmp/
+
+# Build outputs
+dist/
+build/
+
+# Logs
+*.log
+
+# Node modules
+node_modules/
+
+# Public assets that are generated
+public/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
