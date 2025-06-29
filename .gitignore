@@ -16,9 +16,6 @@ build/
 # Node modules
 node_modules/
 
-# Public assets that are generated
-public/
-
 # OS and editor files
 .DS_Store
 Thumbs.db
