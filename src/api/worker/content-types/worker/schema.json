@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "workers",
+  "info": {
+    "singularName": "worker",
+    "pluralName": "workers",
+    "displayName": "worker"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "salary": {
+      "type": "decimal"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "adress": {
+      "type": "string"
+    }
+  }
+}
