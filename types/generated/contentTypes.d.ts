@@ -401,9 +401,6 @@ export interface ApiWorkerWorker extends Struct.CollectionTypeSchema {
     qualification: Schema.Attribute.String & Schema.Attribute.Required;
     role: Schema.Attribute.String & Schema.Attribute.Required;
     salary: Schema.Attribute.Decimal & Schema.Attribute.Required;
-    uid: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

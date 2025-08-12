@@ -23,11 +23,6 @@
       "type": "string",
       "required": true
     },
-    "uid": {
-      "type": "integer",
-      "required": true,
-      "unique": true
-    },
     "entryDate": {
       "type": "date",
       "required": true
