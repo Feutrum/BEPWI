@@ -12,16 +12,41 @@
   "pluginOptions": {},
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "salary": {
-      "type": "decimal"
-    },
-    "phoneNumber": {
-      "type": "string"
+      "type": "decimal",
+      "required": true
     },
     "adress": {
-      "type": "string"
+      "type": "string",
+      "required": true
+    },
+    "uid": {
+      "type": "integer",
+      "required": true,
+      "unique": true
+    },
+    "entryDate": {
+      "type": "date",
+      "required": true
+    },
+    "workTime": {
+      "type": "string",
+      "required": true
+    },
+    "qualification": {
+      "type": "string",
+      "required": true
+    },
+    "role": {
+      "type": "string",
+      "required": true
+    },
+    "birthdate": {
+      "type": "date",
+      "required": true
     }
   }
 }

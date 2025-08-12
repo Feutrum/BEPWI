@@ -384,23 +384,30 @@ export interface ApiWorkerWorker extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    adress: Schema.Attribute.String;
+    adress: Schema.Attribute.String & Schema.Attribute.Required;
+    birthdate: Schema.Attribute.Date & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    entryDate: Schema.Attribute.Date & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::worker.worker'
     > &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String;
-    phoneNumber: Schema.Attribute.String;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    salary: Schema.Attribute.Decimal;
+    qualification: Schema.Attribute.String & Schema.Attribute.Required;
+    role: Schema.Attribute.String & Schema.Attribute.Required;
+    salary: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    uid: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    workTime: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
