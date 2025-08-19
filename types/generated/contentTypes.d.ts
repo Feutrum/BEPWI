@@ -373,6 +373,47 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFahrzeugFahrzeug extends Struct.CollectionTypeSchema {
+  collectionName: 'fahrzeugs';
+  info: {
+    displayName: 'Fahrzeug';
+    pluralName: 'fahrzeugs';
+    singularName: 'fahrzeug';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    erforderliche_fahrerlaubnis: Schema.Attribute.String;
+    ist_autonom: Schema.Attribute.Boolean;
+    ist_gemietet: Schema.Attribute.Boolean;
+    kategorie: Schema.Attribute.String & Schema.Attribute.Required;
+    kennzeichen: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    kilometerstand: Schema.Attribute.BigInteger;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fahrzeug.fahrzeug'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    nutzungsbeschreibung: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    standort: Schema.Attribute.String;
+    statuss: Schema.Attribute.String;
+    treibstoff_art: Schema.Attribute.String & Schema.Attribute.Required;
+    tuev: Schema.Attribute.Date;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -882,6 +923,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::fahrzeug.fahrzeug': ApiFahrzeugFahrzeug;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
