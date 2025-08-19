@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fahrzeugs",
+  "info": {
+    "singularName": "fahrzeug",
+    "pluralName": "fahrzeugs",
+    "displayName": "Fahrzeug"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "standort": {
+      "type": "string"
+    },
+    "kennzeichen": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "kategorie": {
+      "type": "string",
+      "required": true
+    },
+    "treibstoff_art": {
+      "type": "string",
+      "required": true
+    },
+    "tuev": {
+      "type": "date"
+    },
+    "statuss": {
+      "type": "string"
+    },
+    "kilometerstand": {
+      "type": "biginteger"
+    },
+    "ist_gemietet": {
+      "type": "boolean"
+    },
+    "ist_autonom": {
+      "type": "boolean"
+    },
+    "nutzungsbeschreibung": {
+      "type": "text"
+    },
+    "erforderliche_fahrerlaubnis": {
+      "type": "string"
+    }
+  }
+}
