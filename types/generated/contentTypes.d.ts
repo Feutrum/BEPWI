@@ -514,6 +514,38 @@ export interface ApiAussaatAussaat extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiDuengungDuengung extends Struct.CollectionTypeSchema {
+  collectionName: 'duengungs';
+  info: {
+    displayName: 'duengung';
+    pluralName: 'duengungs';
+    singularName: 'duengung';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    betrieb_id: Schema.Attribute.BigInteger;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Enddatum: Schema.Attribute.BigInteger;
+    Kommentar: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::duengung.duengung'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    schlag: Schema.Attribute.BigInteger;
+    Startdatum: Schema.Attribute.BigInteger;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiErnteErnte extends Struct.CollectionTypeSchema {
   collectionName: 'erntes';
   info: {
@@ -1107,6 +1139,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::aktivitaeten.aktivitaeten': ApiAktivitaetenAktivitaeten;
       'api::aussaat.aussaat': ApiAussaatAussaat;
+      'api::duengung.duengung': ApiDuengungDuengung;
       'api::ernte.ernte': ApiErnteErnte;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
