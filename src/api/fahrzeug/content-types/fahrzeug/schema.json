@@ -51,6 +51,12 @@
     },
     "erforderliche_fahrerlaubnis": {
       "type": "string"
+    },
+    "fahrzeugreservierungs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrzeugreservierung.fahrzeugreservierung",
+      "mappedBy": "fahrzeug"
     }
   }
 }
