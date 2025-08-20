@@ -628,6 +628,85 @@ export interface ApiErnteErnte extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFahrerFahrer extends Struct.CollectionTypeSchema {
+  collectionName: 'fahrers';
+  info: {
+    displayName: 'Fahrer';
+    pluralName: 'fahrers';
+    singularName: 'fahrer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    fahrer_id: Schema.Attribute.BigInteger &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    fuererschein_gueltig_bis: Schema.Attribute.Date & Schema.Attribute.Required;
+    fuererscheinklasse: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fahrer.fahrer'
+    > &
+      Schema.Attribute.Private;
+    nachname: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    tankkarte_id: Schema.Attribute.BigInteger &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    verfuegbar: Schema.Attribute.Boolean;
+    vorname: Schema.Attribute.String;
+  };
+}
+
+export interface ApiFahrzeugFahrzeug extends Struct.CollectionTypeSchema {
+  collectionName: 'fahrzeugs';
+  info: {
+    displayName: 'Fahrzeug';
+    pluralName: 'fahrzeugs';
+    singularName: 'fahrzeug';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    erforderliche_fahrerlaubnis: Schema.Attribute.String;
+    ist_autonom: Schema.Attribute.Boolean;
+    ist_gemietet: Schema.Attribute.Boolean;
+    kategorie: Schema.Attribute.String & Schema.Attribute.Required;
+    kennzeichen: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    kilometerstand: Schema.Attribute.BigInteger;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fahrzeug.fahrzeug'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    nutzungsbeschreibung: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    standort: Schema.Attribute.String;
+    statuss: Schema.Attribute.String;
+    treibstoff_art: Schema.Attribute.String & Schema.Attribute.Required;
+    tuev: Schema.Attribute.Date;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1141,6 +1220,8 @@ declare module '@strapi/strapi' {
       'api::aussaat.aussaat': ApiAussaatAussaat;
       'api::duengung.duengung': ApiDuengungDuengung;
       'api::ernte.ernte': ApiErnteErnte;
+      'api::fahrer.fahrer': ApiFahrerFahrer;
+      'api::fahrzeug.fahrzeug': ApiFahrzeugFahrzeug;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

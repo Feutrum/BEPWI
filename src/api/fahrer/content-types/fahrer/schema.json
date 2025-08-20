@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fahrers",
+  "info": {
+    "singularName": "fahrer",
+    "pluralName": "fahrers",
+    "displayName": "Fahrer"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fahrer_id": {
+      "type": "biginteger",
+      "required": true,
+      "unique": true
+    },
+    "vorname": {
+      "type": "string",
+      "required": false
+    },
+    "nachname": {
+      "type": "string",
+      "required": false
+    },
+    "fuererscheinklasse": {
+      "type": "string",
+      "required": true
+    },
+    "fuererschein_gueltig_bis": {
+      "type": "date",
+      "required": true
+    },
+    "verfuegbar": {
+      "type": "boolean"
+    },
+    "tankkarte_id": {
+      "type": "biginteger",
+      "required": true,
+      "unique": true
+    }
+  }
+}
