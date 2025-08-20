@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fahrzeugreservierungs",
+  "info": {
+    "singularName": "fahrzeugreservierung",
+    "pluralName": "fahrzeugreservierungs",
+    "displayName": "Fahrzeugreservierung"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "start": {
+      "type": "datetime",
+      "required": true
+    },
+    "en": {
+      "type": "datetime",
+      "required": true
+    },
+    "genehmigt": {
+      "type": "boolean",
+      "default": false
+    },
+    "anforderer": {
+      "type": "string"
+    },
+    "uebergabeort": {
+      "type": "text"
+    },
+    "fahrzeug": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::fahrzeug.fahrzeug",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": ""
+            },
+            ""
+          ]
+        }
+      },
+      "inversedBy": "fahrzeugreservierungs"
+    },
+    "fahrer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::fahrer.fahrer",
+      "inversedBy": "fahrzeugreservierungs"
+    }
+  }
+}

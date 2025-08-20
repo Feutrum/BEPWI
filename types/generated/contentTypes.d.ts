@@ -645,6 +645,10 @@ export interface ApiFahrerFahrer extends Struct.CollectionTypeSchema {
     fahrer_id: Schema.Attribute.BigInteger &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+    fahrzeugreservierungs: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fahrzeugreservierung.fahrzeugreservierung'
+    >;
     fuererschein_gueltig_bis: Schema.Attribute.Date & Schema.Attribute.Required;
     fuererscheinklasse: Schema.Attribute.String & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -681,6 +685,10 @@ export interface ApiFahrzeugFahrzeug extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     erforderliche_fahrerlaubnis: Schema.Attribute.String;
+    fahrzeugreservierungs: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fahrzeugreservierung.fahrzeugreservierung'
+    >;
     ist_autonom: Schema.Attribute.Boolean;
     ist_gemietet: Schema.Attribute.Boolean;
     kategorie: Schema.Attribute.String & Schema.Attribute.Required;
@@ -701,6 +709,41 @@ export interface ApiFahrzeugFahrzeug extends Struct.CollectionTypeSchema {
     statuss: Schema.Attribute.String;
     treibstoff_art: Schema.Attribute.String & Schema.Attribute.Required;
     tuev: Schema.Attribute.Date;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFahrzeugreservierungFahrzeugreservierung
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'fahrzeugreservierungs';
+  info: {
+    displayName: 'Fahrzeugreservierung';
+    pluralName: 'fahrzeugreservierungs';
+    singularName: 'fahrzeugreservierung';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    anforderer: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    en: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    fahrer: Schema.Attribute.Relation<'manyToOne', 'api::fahrer.fahrer'>;
+    fahrzeug: Schema.Attribute.Relation<'manyToOne', 'api::fahrzeug.fahrzeug'>;
+    genehmigt: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fahrzeugreservierung.fahrzeugreservierung'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    start: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    uebergabeort: Schema.Attribute.Text;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1222,6 +1265,7 @@ declare module '@strapi/strapi' {
       'api::ernte.ernte': ApiErnteErnte;
       'api::fahrer.fahrer': ApiFahrerFahrer;
       'api::fahrzeug.fahrzeug': ApiFahrzeugFahrzeug;
+      'api::fahrzeugreservierung.fahrzeugreservierung': ApiFahrzeugreservierungFahrzeugreservierung;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
