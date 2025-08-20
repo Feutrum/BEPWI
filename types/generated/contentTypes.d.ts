@@ -404,6 +404,10 @@ export interface ApiFahrerFahrer extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     nachname: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    tankeintrags: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tankeintrag.tankeintrag'
+    >;
     tankkarte_id: Schema.Attribute.BigInteger &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
@@ -452,6 +456,10 @@ export interface ApiFahrzeugFahrzeug extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     standort: Schema.Attribute.String;
     statuss: Schema.Attribute.String;
+    tankeintrags: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tankeintrag.tankeintrag'
+    >;
     treibstoff_art: Schema.Attribute.String & Schema.Attribute.Required;
     tuev: Schema.Attribute.Date;
     updatedAt: Schema.Attribute.DateTime;
@@ -489,6 +497,46 @@ export interface ApiFahrzeugreservierungFahrzeugreservierung
     publishedAt: Schema.Attribute.DateTime;
     start: Schema.Attribute.DateTime & Schema.Attribute.Required;
     uebergabeort: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTankeintragTankeintrag extends Struct.CollectionTypeSchema {
+  collectionName: 'tankeintrags';
+  info: {
+    displayName: 'Tankeintrag';
+    pluralName: 'tankeintrags';
+    singularName: 'tankeintrag';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bemerkung: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    fahrer: Schema.Attribute.Relation<'manyToOne', 'api::fahrer.fahrer'>;
+    fahrzeug: Schema.Attribute.Relation<'manyToOne', 'api::fahrzeug.fahrzeug'>;
+    gesamtpreis: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    kilometerstand: Schema.Attribute.BigInteger & Schema.Attribute.Required;
+    liter: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tankeintrag.tankeintrag'
+    > &
+      Schema.Attribute.Private;
+    preis_pro_liter: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    tank_id: Schema.Attribute.BigInteger &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    tankdatum: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    tankstelle: Schema.Attribute.String & Schema.Attribute.Required;
+    treibstoff_art: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1007,6 +1055,7 @@ declare module '@strapi/strapi' {
       'api::fahrer.fahrer': ApiFahrerFahrer;
       'api::fahrzeug.fahrzeug': ApiFahrzeugFahrzeug;
       'api::fahrzeugreservierung.fahrzeugreservierung': ApiFahrzeugreservierungFahrzeugreservierung;
+      'api::tankeintrag.tankeintrag': ApiTankeintragTankeintrag;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

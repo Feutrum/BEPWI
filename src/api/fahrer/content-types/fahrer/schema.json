@@ -45,6 +45,12 @@
       "relation": "oneToMany",
       "target": "api::fahrzeugreservierung.fahrzeugreservierung",
       "mappedBy": "fahrer"
+    },
+    "tankeintrags": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tankeintrag.tankeintrag",
+      "mappedBy": "fahrer"
     }
   }
 }

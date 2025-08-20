@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tankeintrags",
+  "info": {
+    "singularName": "tankeintrag",
+    "pluralName": "tankeintrags",
+    "displayName": "Tankeintrag"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tank_id": {
+      "type": "biginteger",
+      "required": true,
+      "unique": true
+    },
+    "tankdatum": {
+      "type": "datetime",
+      "required": true
+    },
+    "tankstelle": {
+      "type": "string",
+      "required": true
+    },
+    "liter": {
+      "type": "decimal",
+      "required": true
+    },
+    "preis_pro_liter": {
+      "type": "decimal",
+      "required": true
+    },
+    "gesamtpreis": {
+      "type": "decimal",
+      "required": true
+    },
+    "kilometerstand": {
+      "type": "biginteger",
+      "required": true
+    },
+    "treibstoff_art": {
+      "type": "string",
+      "required": true
+    },
+    "bemerkung": {
+      "type": "text"
+    },
+    "fahrer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::fahrer.fahrer",
+      "inversedBy": "tankeintrags"
+    },
+    "fahrzeug": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::fahrzeug.fahrzeug",
+      "inversedBy": "tankeintrags"
+    }
+  }
+}

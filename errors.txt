@@ -1,0 +1,20 @@
+PS C:\Users\mussa\Desktop\BEPWI> npm run dev
+
+> bepwi@0.1.0 dev
+> strapi develop
+
+⠸ Loading Strapi[ERROR]  There seems to be an unexpected error, try again with --debug for more information 
+
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                                                                                                            │
+│   TypeError: Cannot read properties of undefined (reading 'kind')                                                          │
+│       at Object.isSingleType (C:\Users\mussa\Desktop\BEPWI\node_modules\@strapi\utils\dist\content-types.js:95:25)         │
+│       at Object.createRoutes (C:\Users\mussa\Desktop\BEPWI\node_modules\@strapi\core\dist\core-api\routes\index.js:6:34)   │
+│       at get routes (C:\Users\mussa\Desktop\BEPWI\node_modules\@strapi\core\dist\factories.js:62:47)                       │
+│       at Object.<anonymous> (C:\Users\mussa\Desktop\BEPWI\src\api\tankeintrag\routes\tankeintrag.js:23:22)                 │
+│       at Module._compile (node:internal/modules/cjs/loader:1562:14)                                                        │
+│       at Object..js (node:internal/modules/cjs/loader:1699:10)                                                             │
+│       at Module.load (node:internal/modules/cjs/loader:1313:32)                                                            │
+│       at Function._load (node:internal/modules/cjs/loader:1123:12)                                                         │
+│       at TracingChannel.traceSync (node:diagnostics_channel:322:14)                                                        │
+│       at wrapModuleLoad (node:internal/modules/cjs/loader:217:24) 
