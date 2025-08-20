@@ -373,6 +373,44 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFahrerFahrer extends Struct.CollectionTypeSchema {
+  collectionName: 'fahrers';
+  info: {
+    displayName: 'Fahrer';
+    pluralName: 'fahrers';
+    singularName: 'fahrer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    fahrer_id: Schema.Attribute.BigInteger &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    fuererschein_gueltig_bis: Schema.Attribute.Date & Schema.Attribute.Required;
+    fuererscheinklasse: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fahrer.fahrer'
+    > &
+      Schema.Attribute.Private;
+    nachname: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    tankkarte_id: Schema.Attribute.BigInteger &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    verfuegbar: Schema.Attribute.Boolean;
+    vorname: Schema.Attribute.String;
+  };
+}
+
 export interface ApiFahrzeugFahrzeug extends Struct.CollectionTypeSchema {
   collectionName: 'fahrzeugs';
   info: {
@@ -923,6 +961,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::fahrer.fahrer': ApiFahrerFahrer;
       'api::fahrzeug.fahrzeug': ApiFahrzeugFahrzeug;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
