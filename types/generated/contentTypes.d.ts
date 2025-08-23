@@ -457,6 +457,7 @@ export interface ApiFahrzeugFahrzeug extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    wartungs: Schema.Attribute.Relation<'oneToMany', 'api::wartung.wartung'>;
   };
 }
 
@@ -492,6 +493,43 @@ export interface ApiFahrzeugreservierungFahrzeugreservierung
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiWartungWartung extends Struct.CollectionTypeSchema {
+  collectionName: 'wartungs';
+  info: {
+    displayName: 'Wartung';
+    pluralName: 'wartungs';
+    singularName: 'wartung';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    abschluss_datum: Schema.Attribute.Date;
+    beschreibung: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    fahrzeug: Schema.Attribute.Relation<'manyToOne', 'api::fahrzeug.fahrzeug'>;
+    fahrzeug_id: Schema.Attribute.BigInteger & Schema.Attribute.Required;
+    geplantes_datum: Schema.Attribute.Date;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::wartung.wartung'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    wartung_id: Schema.Attribute.BigInteger &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    wartungs_art: Schema.Attribute.Text & Schema.Attribute.Required;
+    wartungs_status: Schema.Attribute.String;
   };
 }
 
@@ -1007,6 +1045,7 @@ declare module '@strapi/strapi' {
       'api::fahrer.fahrer': ApiFahrerFahrer;
       'api::fahrzeug.fahrzeug': ApiFahrzeugFahrzeug;
       'api::fahrzeugreservierung.fahrzeugreservierung': ApiFahrzeugreservierungFahrzeugreservierung;
+      'api::wartung.wartung': ApiWartungWartung;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
