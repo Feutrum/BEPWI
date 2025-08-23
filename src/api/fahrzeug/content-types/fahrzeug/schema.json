@@ -57,6 +57,12 @@
       "relation": "oneToMany",
       "target": "api::fahrzeugreservierung.fahrzeugreservierung",
       "mappedBy": "fahrzeug"
+    },
+    "wartungs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::wartung.wartung",
+      "mappedBy": "fahrzeug"
     }
   }
 }
