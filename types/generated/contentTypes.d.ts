@@ -732,7 +732,7 @@ export interface ApiFahrzeugreservierungFahrzeugreservierung
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    en: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    endzeit: Schema.Attribute.DateTime & Schema.Attribute.Required;
     fahrer: Schema.Attribute.Relation<'manyToOne', 'api::fahrer.fahrer'>;
     fahrzeug: Schema.Attribute.Relation<'manyToOne', 'api::fahrzeug.fahrzeug'>;
     genehmigt: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -743,7 +743,7 @@ export interface ApiFahrzeugreservierungFahrzeugreservierung
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    start: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    startzeit: Schema.Attribute.DateTime & Schema.Attribute.Required;
     uebergabeort: Schema.Attribute.Text;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
