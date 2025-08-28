@@ -1,29 +1,25 @@
 'use strict';
-
-/**
- * fahrzeugreservierung service
- */
-
-const { createCoreService } = require('@strapi/strapi').factories;
 const { ApplicationError } = require('@strapi/utils').errors;
 
-module.exports = createCoreService('api::fahrzeugreservierung.fahrzeugreservierung', ({ strapi }) => ({
-
-    // Funktion zur Konfliktprüfung
+module.exports = () => ({
     async assertAvailability(fahrzeugId, startzeit, endzeit, excludeId) {
+        if (!fahrzeugId) throw new ApplicationError('fahrzeug (ID) fehlt für Konfliktprüfung');
+        if (!startzeit || !endzeit) throw new ApplicationError('Zeitraum fehlt für Konfliktprüfung');
+
+        const filters = {
+            fahrzeug: fahrzeugId,
+            $and: [
+                { startzeit: { $lt: endzeit } },
+                { endzeit:   { $gt: startzeit } }
+            ]
+        };
+        if (excludeId) {
+            filters.id = { $ne: excludeId };
+        }
+
         const matches = await strapi.entityService.findMany(
             'api::fahrzeugreservierung.fahrzeugreservierung',
-            {
-                filters: {
-                    fahrzeug: fahrzeugId,
-                    id: excludeId ? { $ne: excludeId } : undefined,
-                    $and: [
-                        { startzeit: { $lt: endzeit } },
-                        { endzeit:   { $gt: startzeit } }
-                    ]
-                },
-                limit: 1
-            }
+            { filters, limit: 1 }
         );
 
         if (matches && matches.length) {
@@ -32,5 +28,4 @@ module.exports = createCoreService('api::fahrzeugreservierung.fahrzeugreservieru
             );
         }
     }
-
-}));
+});

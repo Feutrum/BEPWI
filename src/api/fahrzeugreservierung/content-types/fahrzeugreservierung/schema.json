@@ -11,11 +11,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "start": {
+    "startzeit": {
       "type": "datetime",
       "required": true
     },
-    "en": {
+    "endzeit": {
       "type": "datetime",
       "required": true
     },
