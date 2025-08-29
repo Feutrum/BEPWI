@@ -404,7 +404,7 @@ export interface ApiWorkerWorker extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    workTime: Schema.Attribute.String & Schema.Attribute.Required;
+    workTime: Schema.Attribute.Integer & Schema.Attribute.Required;
   };
 }
 

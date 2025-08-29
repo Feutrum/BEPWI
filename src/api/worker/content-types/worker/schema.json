@@ -27,10 +27,6 @@
       "type": "date",
       "required": true
     },
-    "workTime": {
-      "type": "string",
-      "required": true
-    },
     "qualification": {
       "type": "string",
       "required": true
@@ -41,6 +37,10 @@
     },
     "birthdate": {
       "type": "date",
+      "required": true
+    },
+    "workTime": {
+      "type": "integer",
       "required": true
     }
   }
