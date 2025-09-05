@@ -449,6 +449,47 @@ export interface ApiFahrerFahrer extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFahrtenbuchFahrtenbuch extends Struct.CollectionTypeSchema {
+  collectionName: 'fahrtenbuches';
+  info: {
+    displayName: 'Fahrtenbuch';
+    pluralName: 'fahrtenbuches';
+    singularName: 'fahrtenbuch';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    datum: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    end_km: Schema.Attribute.BigInteger & Schema.Attribute.Required;
+    fahrer_id: Schema.Attribute.BigInteger &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    fahrtenbuch_id: Schema.Attribute.BigInteger &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    fahrzeug_id: Schema.Attribute.BigInteger &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fahrtenbuch.fahrtenbuch'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    start_km: Schema.Attribute.BigInteger & Schema.Attribute.Required;
+    strecke_km: Schema.Attribute.Integer;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    zweck: Schema.Attribute.String;
+  };
+}
+
 export interface ApiFahrzeugFahrzeug extends Struct.CollectionTypeSchema {
   collectionName: 'fahrzeugs';
   info: {
@@ -1082,6 +1123,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::ausstattung.ausstattung': ApiAusstattungAusstattung;
       'api::fahrer.fahrer': ApiFahrerFahrer;
+      'api::fahrtenbuch.fahrtenbuch': ApiFahrtenbuchFahrtenbuch;
       'api::fahrzeug.fahrzeug': ApiFahrzeugFahrzeug;
       'api::fahrzeugreservierung.fahrzeugreservierung': ApiFahrzeugreservierungFahrzeugreservierung;
       'api::wartung.wartung': ApiWartungWartung;
