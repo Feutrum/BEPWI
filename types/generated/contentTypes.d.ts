@@ -514,6 +514,40 @@ export interface ApiAussaatAussaat extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAusstattungAusstattung extends Struct.CollectionTypeSchema {
+  collectionName: 'ausstattungs';
+  info: {
+    displayName: 'Ausstattung';
+    pluralName: 'ausstattungs';
+    singularName: 'ausstattung';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    beschreibung: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    fahrzeugs: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::fahrzeug.fahrzeug'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ausstattung.ausstattung'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    typ: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiDuengungDuengung extends Struct.CollectionTypeSchema {
   collectionName: 'duengungs';
   info: {
@@ -681,6 +715,10 @@ export interface ApiFahrzeugFahrzeug extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    ausstattungs: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::ausstattung.ausstattung'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1299,6 +1337,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::aktivitaeten.aktivitaeten': ApiAktivitaetenAktivitaeten;
       'api::aussaat.aussaat': ApiAussaatAussaat;
+      'api::ausstattung.ausstattung': ApiAusstattungAusstattung;
       'api::duengung.duengung': ApiDuengungDuengung;
       'api::ernte.ernte': ApiErnteErnte;
       'api::fahrer.fahrer': ApiFahrerFahrer;

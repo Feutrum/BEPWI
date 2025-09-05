@@ -63,6 +63,22 @@
       "relation": "oneToMany",
       "target": "api::wartung.wartung",
       "mappedBy": "fahrzeug"
+    },
+    "ausstattungs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::ausstattung.ausstattung",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": ""
+            },
+            ""
+          ]
+        }
+      },
+      "mappedBy": "fahrzeugs"
     }
   }
 }
