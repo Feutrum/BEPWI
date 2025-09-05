@@ -373,6 +373,40 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAusstattungAusstattung extends Struct.CollectionTypeSchema {
+  collectionName: 'ausstattungs';
+  info: {
+    displayName: 'Ausstattung';
+    pluralName: 'ausstattungs';
+    singularName: 'ausstattung';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    beschreibung: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    fahrzeugs: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::fahrzeug.fahrzeug'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ausstattung.ausstattung'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    typ: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiFahrerFahrer extends Struct.CollectionTypeSchema {
   collectionName: 'fahrers';
   info: {
@@ -426,6 +460,10 @@ export interface ApiFahrzeugFahrzeug extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    ausstattungs: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::ausstattung.ausstattung'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1042,6 +1080,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::ausstattung.ausstattung': ApiAusstattungAusstattung;
       'api::fahrer.fahrer': ApiFahrerFahrer;
       'api::fahrzeug.fahrzeug': ApiFahrzeugFahrzeug;
       'api::fahrzeugreservierung.fahrzeugreservierung': ApiFahrzeugreservierungFahrzeugreservierung;

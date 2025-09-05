@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ausstattungs",
+  "info": {
+    "singularName": "ausstattung",
+    "pluralName": "ausstattungs",
+    "displayName": "Ausstattung"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "typ": {
+      "type": "text"
+    },
+    "beschreibung": {
+      "type": "text"
+    },
+    "fahrzeugs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::fahrzeug.fahrzeug",
+      "inversedBy": "ausstattungs"
+    }
+  }
+}
