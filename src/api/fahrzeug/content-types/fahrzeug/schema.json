@@ -28,6 +28,30 @@
     },
     "tuev": {
       "type": "date"
+    },
+    "ausstattungs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::ausstattung.ausstattung",
+      "mappedBy": "fahrzeugs"
+    },
+    "fahrzeug_werkstatts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrzeug-werkstatt.fahrzeug-werkstatt",
+      "mappedBy": "fahrzeug"
+    },
+    "fahrts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrt.fahrt",
+      "mappedBy": "fahrzeug"
+    },
+    "fahrzeug_standorts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrzeug-standort.fahrzeug-standort",
+      "mappedBy": "fahrzeug"
     }
   }
 }

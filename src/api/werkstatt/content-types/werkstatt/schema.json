@@ -31,6 +31,12 @@
     },
     "hausnummer": {
       "type": "string"
+    },
+    "fahrzeug_werkstatts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrzeug-werkstatt.fahrzeug-werkstatt",
+      "mappedBy": "werkstatt"
     }
   }
 }

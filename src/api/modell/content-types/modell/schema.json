@@ -25,6 +25,12 @@
     },
     "tankvolumen": {
       "type": "integer"
+    },
+    "fuehrerscheins": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::fuehrerschein.fuehrerschein",
+      "mappedBy": "modells"
     }
   }
 }

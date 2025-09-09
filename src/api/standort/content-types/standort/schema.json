@@ -28,6 +28,18 @@
     },
     "hausnummer": {
       "type": "string"
+    },
+    "fahrzeug_standorts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrzeug-standort.fahrzeug-standort",
+      "mappedBy": "standort"
+    },
+    "fahrt_standorts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrt-standort.fahrt-standort",
+      "mappedBy": "standort"
     }
   }
 }

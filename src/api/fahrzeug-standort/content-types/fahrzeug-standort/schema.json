@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fahrzeug_standorts",
+  "info": {
+    "singularName": "fahrzeug-standort",
+    "pluralName": "fahrzeug-standorts",
+    "displayName": "Fahrzeug-Standort"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fzstid": {
+      "type": "uid"
+    },
+    "fahrzeug": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::fahrzeug.fahrzeug",
+      "inversedBy": "fahrzeug_standorts"
+    },
+    "standort": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::standort.standort",
+      "inversedBy": "fahrzeug_standorts"
+    },
+    "park_start": {
+      "type": "datetime"
+    },
+    "park_end": {
+      "type": "datetime"
+    }
+  }
+}

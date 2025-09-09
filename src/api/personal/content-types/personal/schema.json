@@ -34,6 +34,24 @@
     },
     "hausnummer": {
       "type": "string"
+    },
+    "fuehrerscheins": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::fuehrerschein.fuehrerschein",
+      "mappedBy": "personals"
+    },
+    "fahrts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrt.fahrt",
+      "mappedBy": "personal"
+    },
+    "personal_tankstelles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::personal-tankstelle.personal-tankstelle",
+      "mappedBy": "personal"
     }
   }
 }

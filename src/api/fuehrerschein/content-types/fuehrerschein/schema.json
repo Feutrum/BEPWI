@@ -16,6 +16,18 @@
     },
     "bezeichnung": {
       "type": "string"
+    },
+    "modells": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::modell.modell",
+      "inversedBy": "fuehrerscheins"
+    },
+    "personals": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::personal.personal",
+      "inversedBy": "fuehrerscheins"
     }
   }
 }

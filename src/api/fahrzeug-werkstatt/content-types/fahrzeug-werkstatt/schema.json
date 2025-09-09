@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fahrzeug_werkstatts",
+  "info": {
+    "singularName": "fahrzeug-werkstatt",
+    "pluralName": "fahrzeug-werkstatts",
+    "displayName": "Fahrzeug-Werkstatt"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fzwsid": {
+      "type": "uid"
+    },
+    "werkstatt": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::werkstatt.werkstatt",
+      "inversedBy": "fahrzeug_werkstatts"
+    },
+    "fahrzeug": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::fahrzeug.fahrzeug",
+      "inversedBy": "fahrzeug_werkstatts"
+    },
+    "startdatum": {
+      "type": "date"
+    },
+    "enddatum": {
+      "type": "date"
+    },
+    "zweg": {
+      "type": "text"
+    }
+  }
+}
