@@ -16,6 +16,12 @@
     },
     "bezeichnung": {
       "type": "string"
+    },
+    "fahrzeugs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::fahrzeug.fahrzeug",
+      "inversedBy": "ausstattungs"
     }
   }
 }

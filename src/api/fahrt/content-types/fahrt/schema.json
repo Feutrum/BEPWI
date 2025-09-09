@@ -14,11 +14,17 @@
     "fid": {
       "type": "uid"
     },
-    "fzid": {
-      "type": "uid"
+    "fahrzeug": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::fahrzeug.fahrzeug",
+      "inversedBy": "fahrts"
     },
-    "pid": {
-      "type": "uid"
+    "personal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personal.personal",
+      "inversedBy": "fahrts"
     },
     "start_d": {
       "type": "datetime"
@@ -34,6 +40,12 @@
     },
     "zweck": {
       "type": "text"
+    },
+    "fahrt_standorts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrt-standort.fahrt-standort",
+      "mappedBy": "fahrt"
     }
   }
 }
