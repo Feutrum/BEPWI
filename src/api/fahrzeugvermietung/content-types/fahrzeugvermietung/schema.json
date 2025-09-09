@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fahrzeugvermietungs",
+  "info": {
+    "singularName": "fahrzeugvermietung",
+    "pluralName": "fahrzeugvermietungs",
+    "displayName": "Fahrzeugvermietung"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fvid": {
+      "type": "uid"
+    },
+    "name": {
+      "type": "string"
+    },
+    "telefon": {
+      "type": "string"
+    },
+    "plz": {
+      "type": "string"
+    },
+    "ort": {
+      "type": "string"
+    },
+    "strasse": {
+      "type": "string"
+    },
+    "hausnummer": {
+      "type": "string"
+    }
+  }
+}
