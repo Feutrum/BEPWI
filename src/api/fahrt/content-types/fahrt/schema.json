@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fahrts",
+  "info": {
+    "singularName": "fahrt",
+    "pluralName": "fahrts",
+    "displayName": "Fahrt"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fid": {
+      "type": "uid"
+    },
+    "fzid": {
+      "type": "uid"
+    },
+    "pid": {
+      "type": "uid"
+    },
+    "start_d": {
+      "type": "datetime"
+    },
+    "ende_d": {
+      "type": "datetime"
+    },
+    "start_km": {
+      "type": "biginteger"
+    },
+    "end_km": {
+      "type": "biginteger"
+    },
+    "zweck": {
+      "type": "text"
+    }
+  }
+}
