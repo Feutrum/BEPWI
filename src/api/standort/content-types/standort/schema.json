@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "standorts",
+  "info": {
+    "singularName": "standort",
+    "pluralName": "standorts",
+    "displayName": "Standort"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "stid": {
+      "type": "uid"
+    },
+    "bezeichnung": {
+      "type": "string"
+    },
+    "plz": {
+      "type": "string"
+    },
+    "ort": {
+      "type": "string"
+    },
+    "strasse": {
+      "type": "string"
+    },
+    "hausnummer": {
+      "type": "string"
+    }
+  }
+}

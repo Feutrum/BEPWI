@@ -384,35 +384,30 @@ export interface ApiAusstattungAusstattung extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    beschreibung: Schema.Attribute.Text;
+    aid: Schema.Attribute.UID;
+    bezeichnung: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    fahrzeugs: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::fahrzeug.fahrzeug'
-    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::ausstattung.ausstattung'
     > &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    typ: Schema.Attribute.Text;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
   };
 }
 
-export interface ApiFahrerFahrer extends Struct.CollectionTypeSchema {
-  collectionName: 'fahrers';
+export interface ApiFahrtFahrt extends Struct.CollectionTypeSchema {
+  collectionName: 'fahrts';
   info: {
-    displayName: 'Fahrer';
-    pluralName: 'fahrers';
-    singularName: 'fahrer';
+    displayName: 'Fahrt';
+    pluralName: 'fahrts';
+    singularName: 'fahrt';
   };
   options: {
     draftAndPublish: true;
@@ -421,72 +416,21 @@ export interface ApiFahrerFahrer extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    fahrer_id: Schema.Attribute.BigInteger &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    fahrzeugreservierungs: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::fahrzeugreservierung.fahrzeugreservierung'
-    >;
-    fuererschein_gueltig_bis: Schema.Attribute.Date & Schema.Attribute.Required;
-    fuererscheinklasse: Schema.Attribute.String & Schema.Attribute.Required;
+    end_km: Schema.Attribute.BigInteger;
+    ende_d: Schema.Attribute.DateTime;
+    fid: Schema.Attribute.UID;
+    fzid: Schema.Attribute.UID;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::fahrer.fahrer'
-    > &
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::fahrt.fahrt'> &
       Schema.Attribute.Private;
-    nachname: Schema.Attribute.String;
+    pid: Schema.Attribute.UID;
     publishedAt: Schema.Attribute.DateTime;
-    tankkarte_id: Schema.Attribute.BigInteger &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
+    start_d: Schema.Attribute.DateTime;
+    start_km: Schema.Attribute.BigInteger;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    verfuegbar: Schema.Attribute.Boolean;
-    vorname: Schema.Attribute.String;
-  };
-}
-
-export interface ApiFahrtenbuchFahrtenbuch extends Struct.CollectionTypeSchema {
-  collectionName: 'fahrtenbuches';
-  info: {
-    displayName: 'Fahrtenbuch';
-    pluralName: 'fahrtenbuches';
-    singularName: 'fahrtenbuch';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    datum: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    end_km: Schema.Attribute.BigInteger & Schema.Attribute.Required;
-    fahrer_id: Schema.Attribute.BigInteger &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    fahrtenbuch_id: Schema.Attribute.BigInteger &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    fahrzeug_id: Schema.Attribute.BigInteger &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::fahrtenbuch.fahrtenbuch'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    start_km: Schema.Attribute.BigInteger & Schema.Attribute.Required;
-    strecke_km: Schema.Attribute.Integer;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    zweck: Schema.Attribute.String;
+    zweck: Schema.Attribute.Text;
   };
 }
 
@@ -501,114 +445,258 @@ export interface ApiFahrzeugFahrzeug extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    ausstattungs: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::ausstattung.ausstattung'
-    >;
+    anschaffung: Schema.Attribute.Date;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    erforderliche_fahrerlaubnis: Schema.Attribute.String;
-    fahrzeugreservierungs: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::fahrzeugreservierung.fahrzeugreservierung'
-    >;
-    ist_autonom: Schema.Attribute.Boolean;
-    ist_gemietet: Schema.Attribute.Boolean;
-    kategorie: Schema.Attribute.String & Schema.Attribute.Required;
-    kennzeichen: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    kilometerstand: Schema.Attribute.BigInteger;
+    fzid: Schema.Attribute.UID;
+    gewicht: Schema.Attribute.Integer;
+    kennzeichen: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::fahrzeug.fahrzeug'
     > &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
-    nutzungsbeschreibung: Schema.Attribute.Text;
+    modell: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    standort: Schema.Attribute.String;
-    statuss: Schema.Attribute.String;
-    treibstoff_art: Schema.Attribute.String & Schema.Attribute.Required;
     tuev: Schema.Attribute.Date;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    wartungs: Schema.Attribute.Relation<'oneToMany', 'api::wartung.wartung'>;
   };
 }
 
-export interface ApiFahrzeugreservierungFahrzeugreservierung
+export interface ApiFahrzeugvermietungFahrzeugvermietung
   extends Struct.CollectionTypeSchema {
-  collectionName: 'fahrzeugreservierungs';
+  collectionName: 'fahrzeugvermietungs';
   info: {
-    displayName: 'Fahrzeugreservierung';
-    pluralName: 'fahrzeugreservierungs';
-    singularName: 'fahrzeugreservierung';
+    displayName: 'Fahrzeugvermietung';
+    pluralName: 'fahrzeugvermietungs';
+    singularName: 'fahrzeugvermietung';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    anforderer: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    endzeit: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    fahrer: Schema.Attribute.Relation<'manyToOne', 'api::fahrer.fahrer'>;
-    fahrzeug: Schema.Attribute.Relation<'manyToOne', 'api::fahrzeug.fahrzeug'>;
-    genehmigt: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    fvid: Schema.Attribute.UID;
+    hausnummer: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::fahrzeugreservierung.fahrzeugreservierung'
+      'api::fahrzeugvermietung.fahrzeugvermietung'
     > &
       Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    ort: Schema.Attribute.String;
+    plz: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    startzeit: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    uebergabeort: Schema.Attribute.Text;
+    strasse: Schema.Attribute.String;
+    telefon: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
   };
 }
 
-export interface ApiWartungWartung extends Struct.CollectionTypeSchema {
-  collectionName: 'wartungs';
+export interface ApiFuehrerscheinFuehrerschein
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'fuehrerscheins';
   info: {
-    displayName: 'Wartung';
-    pluralName: 'wartungs';
-    singularName: 'wartung';
+    displayName: 'Fuehrerschein';
+    pluralName: 'fuehrerscheins';
+    singularName: 'fuehrerschein';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    abschluss_datum: Schema.Attribute.Date;
-    beschreibung: Schema.Attribute.Text;
+    bezeichnung: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    fahrzeug: Schema.Attribute.Relation<'manyToOne', 'api::fahrzeug.fahrzeug'>;
-    fahrzeug_id: Schema.Attribute.BigInteger & Schema.Attribute.Required;
-    geplantes_datum: Schema.Attribute.Date;
+    fsid: Schema.Attribute.UID;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::wartung.wartung'
+      'api::fuehrerschein.fuehrerschein'
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    wartung_id: Schema.Attribute.BigInteger &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    wartungs_art: Schema.Attribute.Text & Schema.Attribute.Required;
-    wartungs_status: Schema.Attribute.String;
+  };
+}
+
+export interface ApiModellModell extends Struct.CollectionTypeSchema {
+  collectionName: 'modells';
+  info: {
+    displayName: 'Modell';
+    pluralName: 'modells';
+    singularName: 'modell';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bezeichnung: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    gewicht: Schema.Attribute.Integer;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::modell.modell'
+    > &
+      Schema.Attribute.Private;
+    mid: Schema.Attribute.UID;
+    publishedAt: Schema.Attribute.DateTime;
+    tankvolumen: Schema.Attribute.Integer;
+    treibstoff: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPersonalPersonal extends Struct.CollectionTypeSchema {
+  collectionName: 'personals';
+  info: {
+    displayName: 'Personal';
+    pluralName: 'personals';
+    singularName: 'personal';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    geburtsdatum: Schema.Attribute.Date;
+    hausnummer: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::personal.personal'
+    > &
+      Schema.Attribute.Private;
+    nachname: Schema.Attribute.String;
+    ort: Schema.Attribute.String;
+    pid: Schema.Attribute.UID;
+    plz: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    strasse: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    vorname: Schema.Attribute.String;
+  };
+}
+
+export interface ApiStandortStandort extends Struct.CollectionTypeSchema {
+  collectionName: 'standorts';
+  info: {
+    displayName: 'Standort';
+    pluralName: 'standorts';
+    singularName: 'standort';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bezeichnung: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hausnummer: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::standort.standort'
+    > &
+      Schema.Attribute.Private;
+    ort: Schema.Attribute.String;
+    plz: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    stid: Schema.Attribute.UID;
+    strasse: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTankstelleTankstelle extends Struct.CollectionTypeSchema {
+  collectionName: 'tankstelles';
+  info: {
+    displayName: 'Tankstelle';
+    pluralName: 'tankstelles';
+    singularName: 'tankstelle';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hausnummer: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tankstelle.tankstelle'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    ort: Schema.Attribute.String;
+    plz: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    strasse: Schema.Attribute.String;
+    telefon: Schema.Attribute.String;
+    tsid: Schema.Attribute.UID;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiWerkstattWerkstatt extends Struct.CollectionTypeSchema {
+  collectionName: 'werkstatts';
+  info: {
+    displayName: 'Werkstatt';
+    pluralName: 'werkstatts';
+    singularName: 'werkstatt';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hausnummer: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::werkstatt.werkstatt'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    ort: Schema.Attribute.String;
+    plz: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    strasse: Schema.Attribute.String;
+    telefon: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    wsid: Schema.Attribute.UID;
   };
 }
 
@@ -1122,11 +1210,15 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::ausstattung.ausstattung': ApiAusstattungAusstattung;
-      'api::fahrer.fahrer': ApiFahrerFahrer;
-      'api::fahrtenbuch.fahrtenbuch': ApiFahrtenbuchFahrtenbuch;
+      'api::fahrt.fahrt': ApiFahrtFahrt;
       'api::fahrzeug.fahrzeug': ApiFahrzeugFahrzeug;
-      'api::fahrzeugreservierung.fahrzeugreservierung': ApiFahrzeugreservierungFahrzeugreservierung;
-      'api::wartung.wartung': ApiWartungWartung;
+      'api::fahrzeugvermietung.fahrzeugvermietung': ApiFahrzeugvermietungFahrzeugvermietung;
+      'api::fuehrerschein.fuehrerschein': ApiFuehrerscheinFuehrerschein;
+      'api::modell.modell': ApiModellModell;
+      'api::personal.personal': ApiPersonalPersonal;
+      'api::standort.standort': ApiStandortStandort;
+      'api::tankstelle.tankstelle': ApiTankstelleTankstelle;
+      'api::werkstatt.werkstatt': ApiWerkstattWerkstatt;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
