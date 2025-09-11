@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fahrts",
+  "info": {
+    "singularName": "fahrt",
+    "pluralName": "fahrts",
+    "displayName": "Fahrt"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fid": {
+      "type": "uid"
+    },
+    "fahrzeug": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::fahrzeug.fahrzeug",
+      "inversedBy": "fahrts"
+    },
+    "personal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personal.personal",
+      "inversedBy": "fahrts"
+    },
+    "start_d": {
+      "type": "datetime"
+    },
+    "ende_d": {
+      "type": "datetime"
+    },
+    "start_km": {
+      "type": "biginteger"
+    },
+    "end_km": {
+      "type": "biginteger"
+    },
+    "zweck": {
+      "type": "text"
+    },
+    "fahrt_standorts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrt-standort.fahrt-standort",
+      "mappedBy": "fahrt"
+    }
+  }
+}

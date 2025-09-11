@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tankstelles",
+  "info": {
+    "singularName": "tankstelle",
+    "pluralName": "tankstelles",
+    "displayName": "Tankstelle"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tsid": {
+      "type": "uid"
+    },
+    "name": {
+      "type": "string"
+    },
+    "telefon": {
+      "type": "string"
+    },
+    "plz": {
+      "type": "string"
+    },
+    "ort": {
+      "type": "string"
+    },
+    "strasse": {
+      "type": "string"
+    },
+    "hausnummer": {
+      "type": "string"
+    },
+    "personal_tankstelles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::personal-tankstelle.personal-tankstelle",
+      "mappedBy": "tankstelle"
+    }
+  }
+}

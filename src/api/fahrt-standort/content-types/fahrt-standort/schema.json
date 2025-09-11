@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fahrt_standorts",
+  "info": {
+    "singularName": "fahrt-standort",
+    "pluralName": "fahrt-standorts",
+    "displayName": "Fahrt-Standort"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fstid": {
+      "type": "uid"
+    },
+    "fahrt": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::fahrt.fahrt",
+      "inversedBy": "fahrt_standorts"
+    },
+    "standort": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::standort.standort",
+      "inversedBy": "fahrt_standorts"
+    },
+    "typ": {
+      "type": "enumeration",
+      "enum": [
+        "Abfahrt",
+        "Ankunft"
+      ]
+    }
+  }
+}

@@ -11,74 +11,47 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "string",
-      "required": true
-    },
-    "standort": {
-      "type": "string"
+    "fzid": {
+      "type": "uid"
     },
     "kennzeichen": {
-      "type": "string",
-      "required": true,
-      "unique": true
+      "type": "string"
     },
-    "kategorie": {
-      "type": "string",
-      "required": true
+    "modell": {
+      "type": "string"
     },
-    "treibstoff_art": {
-      "type": "string",
-      "required": true
+    "anschaffung": {
+      "type": "date"
+    },
+    "gewicht": {
+      "type": "integer"
     },
     "tuev": {
       "type": "date"
-    },
-    "statuss": {
-      "type": "string"
-    },
-    "kilometerstand": {
-      "type": "biginteger"
-    },
-    "ist_gemietet": {
-      "type": "boolean"
-    },
-    "ist_autonom": {
-      "type": "boolean"
-    },
-    "nutzungsbeschreibung": {
-      "type": "text"
-    },
-    "erforderliche_fahrerlaubnis": {
-      "type": "string"
-    },
-    "fahrzeugreservierungs": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::fahrzeugreservierung.fahrzeugreservierung",
-      "mappedBy": "fahrzeug"
-    },
-    "wartungs": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::wartung.wartung",
-      "mappedBy": "fahrzeug"
     },
     "ausstattungs": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::ausstattung.ausstattung",
-      "conditions": {
-        "visible": {
-          "==": [
-            {
-              "var": ""
-            },
-            ""
-          ]
-        }
-      },
       "mappedBy": "fahrzeugs"
+    },
+    "fahrzeug_werkstatts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrzeug-werkstatt.fahrzeug-werkstatt",
+      "mappedBy": "fahrzeug"
+    },
+    "fahrts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrt.fahrt",
+      "mappedBy": "fahrzeug"
+    },
+    "fahrzeug_standorts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrzeug-standort.fahrzeug-standort",
+      "mappedBy": "fahrzeug"
     }
   }
 }

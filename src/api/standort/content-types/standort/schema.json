@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "standorts",
+  "info": {
+    "singularName": "standort",
+    "pluralName": "standorts",
+    "displayName": "Standort"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "stid": {
+      "type": "uid"
+    },
+    "bezeichnung": {
+      "type": "string"
+    },
+    "plz": {
+      "type": "string"
+    },
+    "ort": {
+      "type": "string"
+    },
+    "strasse": {
+      "type": "string"
+    },
+    "hausnummer": {
+      "type": "string"
+    },
+    "fahrzeug_standorts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrzeug-standort.fahrzeug-standort",
+      "mappedBy": "standort"
+    },
+    "fahrt_standorts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fahrt-standort.fahrt-standort",
+      "mappedBy": "standort"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "modells",
+  "info": {
+    "singularName": "modell",
+    "pluralName": "modells",
+    "displayName": "Modell"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "mid": {
+      "type": "uid"
+    },
+    "bezeichnung": {
+      "type": "string"
+    },
+    "gewicht": {
+      "type": "integer"
+    },
+    "treibstoff": {
+      "type": "string"
+    },
+    "tankvolumen": {
+      "type": "integer"
+    },
+    "fuehrerscheins": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::fuehrerschein.fuehrerschein",
+      "mappedBy": "modells"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fuehrerscheins",
+  "info": {
+    "singularName": "fuehrerschein",
+    "pluralName": "fuehrerscheins",
+    "displayName": "Fuehrerschein"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fsid": {
+      "type": "uid"
+    },
+    "bezeichnung": {
+      "type": "string"
+    },
+    "modells": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::modell.modell",
+      "inversedBy": "fuehrerscheins"
+    },
+    "personals": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::personal.personal",
+      "inversedBy": "fuehrerscheins"
+    }
+  }
+}

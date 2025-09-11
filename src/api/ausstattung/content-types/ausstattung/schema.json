@@ -11,15 +11,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "string",
-      "required": true
+    "aid": {
+      "type": "uid"
     },
-    "typ": {
-      "type": "text"
-    },
-    "beschreibung": {
-      "type": "text"
+    "bezeichnung": {
+      "type": "string"
     },
     "fahrzeugs": {
       "type": "relation",

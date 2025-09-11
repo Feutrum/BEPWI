@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "personal_tankstelles",
+  "info": {
+    "singularName": "personal-tankstelle",
+    "pluralName": "personal-tankstelles",
+    "displayName": "Personal-Tankstelle"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ptid": {
+      "type": "uid"
+    },
+    "personal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personal.personal",
+      "inversedBy": "personal_tankstelles"
+    },
+    "tankstelle": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tankstelle.tankstelle",
+      "inversedBy": "personal_tankstelles"
+    },
+    "treibstoffart": {
+      "type": "string"
+    },
+    "liter": {
+      "type": "float",
+      "min": 0
+    },
+    "preis_pro_liter": {
+      "type": "float"
+    },
+    "zeitpunkt": {
+      "type": "datetime"
+    },
+    "km_anzahl": {
+      "type": "biginteger"
+    }
+  }
+}
