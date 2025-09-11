@@ -9,12 +9,11 @@ module.exports = createCoreController('api::fahrzeug.fahrzeug', ({ strapi }) => 
         if (!standortId) return ctx.badRequest('Bitte Standort-ID angeben.');
 
         try {
-            // entspricht: ?filters[fahrzeug_standorts][standort][id][$eq]=:standortId
             const rows = await strapi.db.query('api::fahrzeug.fahrzeug').findMany({
                 where: { fahrzeug_standorts: { standort: { id: standortId } } },
-                populate: ctx.query.populate || undefined,   // optional
-                select: ctx.query.fields || undefined,       // optional
-                orderBy: ctx.query.sort || undefined,        // optional
+                populate: ctx.query.populate || undefined,
+                select: ctx.query.fields || undefined,
+                orderBy: ctx.query.sort || undefined,
             });
 
             strapi.log.info(`[byStandort] result count=${rows.length}`);
