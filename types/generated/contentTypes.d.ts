@@ -432,7 +432,7 @@ export interface ApiAktivitaetenAktivitaeten
 export interface ApiAussaatAussaat extends Struct.CollectionTypeSchema {
   collectionName: 'aussaats';
   info: {
-    displayName: 'aussaat';
+    displayName: 'Aussaat';
     pluralName: 'aussaats';
     singularName: 'aussaat';
   };
@@ -550,7 +550,7 @@ export interface ApiAusstattungAusstattung extends Struct.CollectionTypeSchema {
 export interface ApiDuengungDuengung extends Struct.CollectionTypeSchema {
   collectionName: 'duengungs';
   info: {
-    displayName: 'duengung';
+    displayName: 'Duengung';
     pluralName: 'duengungs';
     singularName: 'duengung';
   };
@@ -582,7 +582,7 @@ export interface ApiDuengungDuengung extends Struct.CollectionTypeSchema {
 export interface ApiErnteErnte extends Struct.CollectionTypeSchema {
   collectionName: 'erntes';
   info: {
-    displayName: 'ernte';
+    displayName: 'Ernte';
     pluralName: 'erntes';
     singularName: 'ernte';
   };
