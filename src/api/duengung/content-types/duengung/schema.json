@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "duengungs",
+  "info": {
+    "singularName": "duengung",
+    "pluralName": "duengungs",
+    "displayName": "duengung"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Startdatum": {
+      "type": "biginteger"
+    },
+    "Enddatum": {
+      "type": "biginteger"
+    },
+    "betrieb_id": {
+      "type": "biginteger"
+    },
+    "Kommentar": {
+      "type": "text"
+    },
+    "schlag": {
+      "type": "biginteger"
+    }
+  }
+}
