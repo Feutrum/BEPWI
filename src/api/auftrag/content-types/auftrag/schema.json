@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "auftrags",
+  "info": {
+    "singularName": "auftrag",
+    "pluralName": "auftrags",
+    "displayName": "Auftrag"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "auid": {
+      "type": "uid"
+    },
+    "angebot": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::angebot.angebot",
+      "inversedBy": "auftrag"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["offen", "in_bearbeitung", "in_lieferung", "abgeschlossen"],
+      "default": "offen"
+    },
+    "auftragsdatum": {
+      "type": "datetime"
+    },
+    "lieferdatum": {
+      "type": "datetime"
+    },
+    "fahrer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personal.personal",
+      "inversedBy": "auftraege"
+    },
+    "fahrzeug": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::fahrzeug.fahrzeug",
+      "inversedBy": "auftraege"
+    },
+    "bemerkungen": {
+      "type": "text"
+    }
+  }
+}

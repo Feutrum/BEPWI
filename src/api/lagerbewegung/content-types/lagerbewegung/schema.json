@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lagerbewegungs",
+  "info": {
+    "singularName": "lagerbewegung",
+    "pluralName": "lagerbewegungs",
+    "displayName": "Lagerbewegung"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "lbid": {
+      "type": "uid"
+    },
+    "bestand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::bestand.bestand",
+      "inversedBy": "lagerbewegungs"
+    },
+    "typ": {
+      "type": "enumeration",
+      "enum": ["eingang", "ausgang", "umlagerung"],
+      "required": true
+    },
+    "menge": {
+      "type": "float",
+      "required": true,
+      "min": 0
+    },
+    "einheit": {
+      "type": "enumeration",
+      "enum": ["kg", "liter", "tonnen", "stueck"],
+      "required": true
+    },
+    "personal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personal.personal",
+      "inversedBy": "lagerbewegungs"
+    },
+    "zeitpunkt": {
+      "type": "datetime",
+      "required": true
+    },
+    "referenz": {
+      "type": "string"
+    },
+    "bemerkung": {
+      "type": "text"
+    }
+  }
+}

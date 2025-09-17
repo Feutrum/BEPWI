@@ -7,9 +7,14 @@
     "displayName": "Fahrzeug-Werkstatt"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false,
+    "privateAttributes": ["id", "created_at", "updated_at"]
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    }
+  },
   "attributes": {
     "fzwsid": {
       "type": "uid"

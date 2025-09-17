@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "aktion_verbrauchsguts",
+  "info": {
+    "singularName": "aktion-verbrauchsgut",
+    "pluralName": "aktion-verbrauchsguts",
+    "displayName": "Aktion-Verbrauchsgut"
+  },
+  "options": {
+    "draftAndPublish": false,
+    "privateAttributes": ["id", "created_at", "updated_at"]
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    }
+  },
+  "attributes": {
+    "avid": {
+      "type": "uid"
+    },
+    "aktion": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::aktion.aktion",
+      "inversedBy": "aktion_verbrauchsguts"
+    },
+    "verbrauchsgut": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::verbrauchsgut.verbrauchsgut",
+      "inversedBy": "aktion_verbrauchsguts"
+    },
+    "menge": {
+      "type": "float",
+      "required": true,
+      "min": 0
+    },
+    "einheit": {
+      "type": "enumeration",
+      "enum": ["kg", "liter", "tonnen", "stueck"],
+      "required": true
+    },
+    "geplanteMenge": {
+      "type": "float",
+      "min": 0
+    },
+    "verbrauchtesMenge": {
+      "type": "float",
+      "min": 0
+    }
+  }
+}

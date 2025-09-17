@@ -52,6 +52,18 @@
       "relation": "oneToMany",
       "target": "api::fahrzeug-standort.fahrzeug-standort",
       "mappedBy": "fahrzeug"
+    },
+    "aktions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::aktion.aktion",
+      "inversedBy": "fahrzeuge"
+    },
+    "auftraege": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::auftrag.auftrag",
+      "mappedBy": "fahrzeug"
     }
   }
 }

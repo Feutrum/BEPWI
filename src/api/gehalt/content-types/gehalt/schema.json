@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "gehalts",
+  "info": {
+    "singularName": "gehalt",
+    "pluralName": "gehalts",
+    "displayName": "Gehalt"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "gid": {
+      "type": "uid"
+    },
+    "personal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personal.personal",
+      "inversedBy": "gehalts"
+    },
+    "position": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::position.position",
+      "inversedBy": "gehalts"
+    },
+    "betrag": {
+      "type": "float",
+      "required": true,
+      "min": 0
+    },
+    "gueltigAb": {
+      "type": "date",
+      "required": true
+    },
+    "gueltigBis": {
+      "type": "date"
+    },
+    "typ": {
+      "type": "enumeration",
+      "enum": ["grundgehalt", "bonus", "ueberstunden", "sonderzahlung"],
+      "default": "grundgehalt"
+    },
+    "bemerkung": {
+      "type": "text"
+    }
+  }
+}

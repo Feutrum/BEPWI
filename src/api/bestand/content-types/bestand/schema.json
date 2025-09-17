@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bestands",
+  "info": {
+    "singularName": "bestand",
+    "pluralName": "bestands",
+    "displayName": "Bestand"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "bid": {
+      "type": "uid"
+    },
+    "artikel": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::artikel.artikel",
+      "inversedBy": "bestands"
+    },
+    "standort": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::standort.standort",
+      "inversedBy": "bestands"
+    },
+    "menge": {
+      "type": "float",
+      "required": true,
+      "min": 0
+    },
+    "einheit": {
+      "type": "enumeration",
+      "enum": ["kg", "liter", "tonnen", "stueck"],
+      "required": true
+    },
+    "letzteAktualisierung": {
+      "type": "datetime"
+    },
+    "mindestbestand": {
+      "type": "float",
+      "min": 0
+    },
+    "lagerbewegungs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lagerbewegung.lagerbewegung",
+      "mappedBy": "bestand"
+    }
+  }
+}

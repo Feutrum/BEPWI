@@ -1,0 +1,77 @@
+{
+  "kind": "collectionType",
+  "collectionName": "aktions",
+  "info": {
+    "singularName": "aktion",
+    "pluralName": "aktions",
+    "displayName": "Aktion"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "aid": {
+      "type": "uid"
+    },
+    "bezeichnung": {
+      "type": "string",
+      "required": true
+    },
+    "typ": {
+      "type": "enumeration",
+      "enum": ["aussaat", "duengung", "ernte", "bewaesserung", "pflege"],
+      "required": true
+    },
+    "feld": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::feld.feld",
+      "inversedBy": "aktions"
+    },
+    "personal": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::personal.personal",
+      "mappedBy": "aktions"
+    },
+    "fahrzeuge": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::fahrzeug.fahrzeug",
+      "mappedBy": "aktions"
+    },
+    "verbrauchsgueter": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::verbrauchsgut.verbrauchsgut",
+      "mappedBy": "aktions"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["geplant", "laufend", "abgeschlossen"],
+      "default": "geplant"
+    },
+    "startdatum": {
+      "type": "datetime"
+    },
+    "enddatum": {
+      "type": "datetime"
+    },
+    "kommentar": {
+      "type": "text"
+    },
+    "arbeitszeits": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::arbeitszeit.arbeitszeit",
+      "mappedBy": "aktion"
+    },
+    "aktion_verbrauchsguts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::aktion-verbrauchsgut.aktion-verbrauchsgut",
+      "mappedBy": "aktion"
+    }
+  }
+}

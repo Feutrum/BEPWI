@@ -52,6 +52,48 @@
       "relation": "oneToMany",
       "target": "api::personal-tankstelle.personal-tankstelle",
       "mappedBy": "personal"
+    },
+    "position": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::position.position",
+      "inversedBy": "personals"
+    },
+    "qualifikations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::qualifikation.qualifikation",
+      "mappedBy": "personal"
+    },
+    "aktions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::aktion.aktion",
+      "inversedBy": "personal"
+    },
+    "auftraege": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::auftrag.auftrag",
+      "mappedBy": "fahrer"
+    },
+    "lagerbewegungs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lagerbewegung.lagerbewegung",
+      "mappedBy": "personal"
+    },
+    "gehalts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::gehalt.gehalt",
+      "mappedBy": "personal"
+    },
+    "arbeitszeits": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::arbeitszeit.arbeitszeit",
+      "mappedBy": "personal"
     }
   }
 }

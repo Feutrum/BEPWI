@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "angebots",
+  "info": {
+    "singularName": "angebot",
+    "pluralName": "angebots",
+    "displayName": "Angebot"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "anid": {
+      "type": "uid"
+    },
+    "kunde": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::kunde.kunde",
+      "inversedBy": "angebots"
+    },
+    "gueltigkeitsdatum": {
+      "type": "datetime",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["erstellt", "gesendet", "angenommen", "abgelehnt"],
+      "default": "erstellt"
+    },
+    "erstellungsdatum": {
+      "type": "datetime"
+    },
+    "gesamtpreis": {
+      "type": "float",
+      "min": 0
+    },
+    "beschreibung": {
+      "type": "text"
+    },
+    "auftrag": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::auftrag.auftrag",
+      "mappedBy": "angebot"
+    },
+    "angebot_artikels": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::angebot-artikel.angebot-artikel",
+      "mappedBy": "angebot"
+    }
+  }
+}

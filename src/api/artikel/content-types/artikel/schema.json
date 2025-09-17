@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "artikels",
+  "info": {
+    "singularName": "artikel",
+    "pluralName": "artikels",
+    "displayName": "Artikel"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "aid": {
+      "type": "uid"
+    },
+    "bezeichnung": {
+      "type": "string",
+      "required": true
+    },
+    "beschreibung": {
+      "type": "text"
+    },
+    "kategorie": {
+      "type": "string"
+    },
+    "mindestbestand": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    },
+    "bestands": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bestand.bestand",
+      "mappedBy": "artikel"
+    },
+    "angebot_artikels": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::angebot-artikel.angebot-artikel",
+      "mappedBy": "artikel"
+    }
+  }
+}

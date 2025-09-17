@@ -373,6 +373,128 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAktionVerbrauchsgutAktionVerbrauchsgut
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'aktion_verbrauchsguts';
+  info: {
+    displayName: 'Aktion-Verbrauchsgut';
+    pluralName: 'aktion-verbrauchsguts';
+    singularName: 'aktion-verbrauchsgut';
+  };
+  options: {
+    draftAndPublish: false;
+    privateAttributes: ['id', 'created_at', 'updated_at'];
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+  };
+  attributes: {
+    aktion: Schema.Attribute.Relation<'manyToOne', 'api::aktion.aktion'>;
+    avid: Schema.Attribute.UID;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    einheit: Schema.Attribute.Enumeration<['kg', 'liter', 'tonnen', 'stueck']> &
+      Schema.Attribute.Required;
+    geplanteMenge: Schema.Attribute.Float &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::aktion-verbrauchsgut.aktion-verbrauchsgut'
+    > &
+      Schema.Attribute.Private;
+    menge: Schema.Attribute.Float &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    verbrauchsgut: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::verbrauchsgut.verbrauchsgut'
+    >;
+    verbrauchtesMenge: Schema.Attribute.Float &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+  };
+}
+
+export interface ApiAktionAktion extends Struct.CollectionTypeSchema {
+  collectionName: 'aktions';
+  info: {
+    displayName: 'Aktion';
+    pluralName: 'aktions';
+    singularName: 'aktion';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    aid: Schema.Attribute.UID;
+    aktion_verbrauchsguts: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::aktion-verbrauchsgut.aktion-verbrauchsgut'
+    >;
+    arbeitszeits: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::arbeitszeit.arbeitszeit'
+    >;
+    bezeichnung: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    enddatum: Schema.Attribute.DateTime;
+    fahrzeuge: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::fahrzeug.fahrzeug'
+    >;
+    feld: Schema.Attribute.Relation<'manyToOne', 'api::feld.feld'>;
+    kommentar: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::aktion.aktion'
+    > &
+      Schema.Attribute.Private;
+    personal: Schema.Attribute.Relation<'manyToMany', 'api::personal.personal'>;
+    publishedAt: Schema.Attribute.DateTime;
+    startdatum: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      ['geplant', 'laufend', 'abgeschlossen']
+    > &
+      Schema.Attribute.DefaultTo<'geplant'>;
+    typ: Schema.Attribute.Enumeration<
+      ['aussaat', 'duengung', 'ernte', 'bewaesserung', 'pflege']
+    > &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    verbrauchsgueter: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::verbrauchsgut.verbrauchsgut'
+    >;
+  };
+}
+
 export interface ApiAktivitaetenAktivitaeten
   extends Struct.CollectionTypeSchema {
   collectionName: 'aktivitaetens';
@@ -429,85 +551,238 @@ export interface ApiAktivitaetenAktivitaeten
   };
 }
 
-export interface ApiAussaatAussaat extends Struct.CollectionTypeSchema {
-  collectionName: 'aussaats';
+export interface ApiAngebotArtikelAngebotArtikel
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'angebot_artikels';
   info: {
-    displayName: 'Aussaat';
-    pluralName: 'aussaats';
-    singularName: 'aussaat';
+    displayName: 'Angebot-Artikel';
+    pluralName: 'angebot-artikels';
+    singularName: 'angebot-artikel';
+  };
+  options: {
+    draftAndPublish: false;
+    privateAttributes: ['id', 'created_at', 'updated_at'];
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+  };
+  attributes: {
+    aaid: Schema.Attribute.UID;
+    angebot: Schema.Attribute.Relation<'manyToOne', 'api::angebot.angebot'>;
+    artikel: Schema.Attribute.Relation<'manyToOne', 'api::artikel.artikel'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    einheit: Schema.Attribute.Enumeration<['kg', 'liter', 'tonnen', 'stueck']> &
+      Schema.Attribute.Required;
+    einzelpreis: Schema.Attribute.Float &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    gesamtpreis: Schema.Attribute.Float &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::angebot-artikel.angebot-artikel'
+    > &
+      Schema.Attribute.Private;
+    menge: Schema.Attribute.Float &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiAngebotAngebot extends Struct.CollectionTypeSchema {
+  collectionName: 'angebots';
+  info: {
+    displayName: 'Angebot';
+    pluralName: 'angebots';
+    singularName: 'angebot';
   };
   options: {
     draftAndPublish: true;
   };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
   attributes: {
-    aktivitaetsbereich: Schema.Attribute.BigInteger &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    arbeiter: Schema.Attribute.BigInteger &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    betrieb_id: Schema.Attribute.BigInteger &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
+    angebot_artikels: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::angebot-artikel.angebot-artikel'
+    >;
+    anid: Schema.Attribute.UID;
+    auftrag: Schema.Attribute.Relation<'oneToOne', 'api::auftrag.auftrag'>;
+    beschreibung: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    enddatum: Schema.Attribute.BigInteger &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    kommentar: Schema.Attribute.Text &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    locale: Schema.Attribute.String;
+    erstellungsdatum: Schema.Attribute.DateTime;
+    gesamtpreis: Schema.Attribute.Float &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    gueltigkeitsdatum: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    kunde: Schema.Attribute.Relation<'manyToOne', 'api::kunde.kunde'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::aussaat.aussaat'
-    >;
-    maschinen: Schema.Attribute.BigInteger &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    planung: Schema.Attribute.Boolean &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
+      'api::angebot.angebot'
+    > &
+      Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    schlag: Schema.Attribute.BigInteger &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    startdatum: Schema.Attribute.BigInteger &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
+    status: Schema.Attribute.Enumeration<
+      ['erstellt', 'gesendet', 'angenommen', 'abgelehnt']
+    > &
+      Schema.Attribute.DefaultTo<'erstellt'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiArbeitszeitArbeitszeit extends Struct.CollectionTypeSchema {
+  collectionName: 'arbeitszeits';
+  info: {
+    displayName: 'Arbeitszeit';
+    pluralName: 'arbeitszeits';
+    singularName: 'arbeitszeit';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    aktion: Schema.Attribute.Relation<'manyToOne', 'api::aktion.aktion'>;
+    azid: Schema.Attribute.UID;
+    bemerkung: Schema.Attribute.Text;
+    bis: Schema.Attribute.DateTime;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::arbeitszeit.arbeitszeit'
+    > &
+      Schema.Attribute.Private;
+    personal: Schema.Attribute.Relation<'manyToOne', 'api::personal.personal'>;
+    publishedAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      ['urlaub', 'krank', 'geleistet', 'geplant']
+    > &
+      Schema.Attribute.DefaultTo<'geplant'>;
+    stunden: Schema.Attribute.Float &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    taetigkeit: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    von: Schema.Attribute.DateTime & Schema.Attribute.Required;
+  };
+}
+
+export interface ApiArtikelArtikel extends Struct.CollectionTypeSchema {
+  collectionName: 'artikels';
+  info: {
+    displayName: 'Artikel';
+    pluralName: 'artikels';
+    singularName: 'artikel';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    aid: Schema.Attribute.UID;
+    angebot_artikels: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::angebot-artikel.angebot-artikel'
+    >;
+    beschreibung: Schema.Attribute.Text;
+    bestands: Schema.Attribute.Relation<'oneToMany', 'api::bestand.bestand'>;
+    bezeichnung: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    kategorie: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::artikel.artikel'
+    > &
+      Schema.Attribute.Private;
+    mindestbestand: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiAuftragAuftrag extends Struct.CollectionTypeSchema {
+  collectionName: 'auftrags';
+  info: {
+    displayName: 'Auftrag';
+    pluralName: 'auftrags';
+    singularName: 'auftrag';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    angebot: Schema.Attribute.Relation<'oneToOne', 'api::angebot.angebot'>;
+    auftragsdatum: Schema.Attribute.DateTime;
+    auid: Schema.Attribute.UID;
+    bemerkungen: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    fahrer: Schema.Attribute.Relation<'manyToOne', 'api::personal.personal'>;
+    fahrzeug: Schema.Attribute.Relation<'manyToOne', 'api::fahrzeug.fahrzeug'>;
+    lieferdatum: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::auftrag.auftrag'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      ['offen', 'in_bearbeitung', 'in_lieferung', 'abgeschlossen']
+    > &
+      Schema.Attribute.DefaultTo<'offen'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -547,114 +822,52 @@ export interface ApiAusstattungAusstattung extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiDuengungDuengung extends Struct.CollectionTypeSchema {
-  collectionName: 'duengungs';
+export interface ApiBestandBestand extends Struct.CollectionTypeSchema {
+  collectionName: 'bestands';
   info: {
-    displayName: 'Duengung';
-    pluralName: 'duengungs';
-    singularName: 'duengung';
+    displayName: 'Bestand';
+    pluralName: 'bestands';
+    singularName: 'bestand';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    betrieb_id: Schema.Attribute.BigInteger;
+    artikel: Schema.Attribute.Relation<'manyToOne', 'api::artikel.artikel'>;
+    bid: Schema.Attribute.UID;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Enddatum: Schema.Attribute.BigInteger;
-    Kommentar: Schema.Attribute.Text;
+    einheit: Schema.Attribute.Enumeration<['kg', 'liter', 'tonnen', 'stueck']> &
+      Schema.Attribute.Required;
+    lagerbewegungs: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::lagerbewegung.lagerbewegung'
+    >;
+    letzteAktualisierung: Schema.Attribute.DateTime;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::duengung.duengung'
+      'api::bestand.bestand'
     > &
       Schema.Attribute.Private;
+    menge: Schema.Attribute.Float &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    mindestbestand: Schema.Attribute.Float &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
     publishedAt: Schema.Attribute.DateTime;
-    schlag: Schema.Attribute.BigInteger;
-    Startdatum: Schema.Attribute.BigInteger;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiErnteErnte extends Struct.CollectionTypeSchema {
-  collectionName: 'erntes';
-  info: {
-    displayName: 'Ernte';
-    pluralName: 'erntes';
-    singularName: 'ernte';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    aktivitaetsbereich: Schema.Attribute.BigInteger &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    arbeiter: Schema.Attribute.BigInteger &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    betrieb_id: Schema.Attribute.BigInteger &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    enddatum: Schema.Attribute.BigInteger &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    kommentar: Schema.Attribute.Text &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::ernte.ernte'>;
-    maschinen: Schema.Attribute.BigInteger &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    planung: Schema.Attribute.Boolean &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    publishedAt: Schema.Attribute.DateTime;
-    schlag: Schema.Attribute.BigInteger &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    startdatum: Schema.Attribute.BigInteger &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
+    standort: Schema.Attribute.Relation<'manyToOne', 'api::standort.standort'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -670,7 +883,13 @@ export interface ApiFahrtStandortFahrtStandort
     singularName: 'fahrt-standort';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
+    privateAttributes: ['id', 'created_at', 'updated_at'];
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -738,7 +957,13 @@ export interface ApiFahrzeugStandortFahrzeugStandort
     singularName: 'fahrzeug-standort';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
+    privateAttributes: ['id', 'created_at', 'updated_at'];
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -771,7 +996,13 @@ export interface ApiFahrzeugWerkstattFahrzeugWerkstatt
     singularName: 'fahrzeug-werkstatt';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
+    privateAttributes: ['id', 'created_at', 'updated_at'];
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -810,7 +1041,9 @@ export interface ApiFahrzeugFahrzeug extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    aktions: Schema.Attribute.Relation<'manyToMany', 'api::aktion.aktion'>;
     anschaffung: Schema.Attribute.Date;
+    auftraege: Schema.Attribute.Relation<'oneToMany', 'api::auftrag.auftrag'>;
     ausstattungs: Schema.Attribute.Relation<
       'manyToMany',
       'api::ausstattung.ausstattung'
@@ -880,6 +1113,42 @@ export interface ApiFahrzeugvermietungFahrzeugvermietung
   };
 }
 
+export interface ApiFeldFeld extends Struct.CollectionTypeSchema {
+  collectionName: 'felds';
+  info: {
+    displayName: 'Feld';
+    pluralName: 'felds';
+    singularName: 'feld';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    aktions: Schema.Attribute.Relation<'oneToMany', 'api::aktion.aktion'>;
+    bezeichnung: Schema.Attribute.String & Schema.Attribute.Required;
+    bodenart: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    feid: Schema.Attribute.UID;
+    groesse: Schema.Attribute.Float &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::feld.feld'> &
+      Schema.Attribute.Private;
+    position: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiFuehrerscheinFuehrerschein
   extends Struct.CollectionTypeSchema {
   collectionName: 'fuehrerscheins';
@@ -912,6 +1181,130 @@ export interface ApiFuehrerscheinFuehrerschein
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiGehaltGehalt extends Struct.CollectionTypeSchema {
+  collectionName: 'gehalts';
+  info: {
+    displayName: 'Gehalt';
+    pluralName: 'gehalts';
+    singularName: 'gehalt';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bemerkung: Schema.Attribute.Text;
+    betrag: Schema.Attribute.Float &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    gid: Schema.Attribute.UID;
+    gueltigAb: Schema.Attribute.Date & Schema.Attribute.Required;
+    gueltigBis: Schema.Attribute.Date;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::gehalt.gehalt'
+    > &
+      Schema.Attribute.Private;
+    personal: Schema.Attribute.Relation<'manyToOne', 'api::personal.personal'>;
+    position: Schema.Attribute.Relation<'manyToOne', 'api::position.position'>;
+    publishedAt: Schema.Attribute.DateTime;
+    typ: Schema.Attribute.Enumeration<
+      ['grundgehalt', 'bonus', 'ueberstunden', 'sonderzahlung']
+    > &
+      Schema.Attribute.DefaultTo<'grundgehalt'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiKundeKunde extends Struct.CollectionTypeSchema {
+  collectionName: 'kundes';
+  info: {
+    displayName: 'Kunde';
+    pluralName: 'kundes';
+    singularName: 'kunde';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    angebots: Schema.Attribute.Relation<'oneToMany', 'api::angebot.angebot'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hausnummer: Schema.Attribute.String;
+    iban: Schema.Attribute.String;
+    kid: Schema.Attribute.UID;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::kunde.kunde'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    ort: Schema.Attribute.String;
+    plz: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    strasse: Schema.Attribute.String;
+    telefon: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiLagerbewegungLagerbewegung
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'lagerbewegungs';
+  info: {
+    displayName: 'Lagerbewegung';
+    pluralName: 'lagerbewegungs';
+    singularName: 'lagerbewegung';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bemerkung: Schema.Attribute.Text;
+    bestand: Schema.Attribute.Relation<'manyToOne', 'api::bestand.bestand'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    einheit: Schema.Attribute.Enumeration<['kg', 'liter', 'tonnen', 'stueck']> &
+      Schema.Attribute.Required;
+    lbid: Schema.Attribute.UID;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::lagerbewegung.lagerbewegung'
+    > &
+      Schema.Attribute.Private;
+    menge: Schema.Attribute.Float &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    personal: Schema.Attribute.Relation<'manyToOne', 'api::personal.personal'>;
+    publishedAt: Schema.Attribute.DateTime;
+    referenz: Schema.Attribute.String;
+    typ: Schema.Attribute.Enumeration<['eingang', 'ausgang', 'umlagerung']> &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    zeitpunkt: Schema.Attribute.DateTime & Schema.Attribute.Required;
   };
 }
 
@@ -960,7 +1353,13 @@ export interface ApiPersonalTankstellePersonalTankstelle
     singularName: 'personal-tankstelle';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
+    privateAttributes: ['id', 'created_at', 'updated_at'];
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -1007,6 +1406,12 @@ export interface ApiPersonalPersonal extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    aktions: Schema.Attribute.Relation<'manyToMany', 'api::aktion.aktion'>;
+    arbeitszeits: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::arbeitszeit.arbeitszeit'
+    >;
+    auftraege: Schema.Attribute.Relation<'oneToMany', 'api::auftrag.auftrag'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1016,7 +1421,12 @@ export interface ApiPersonalPersonal extends Struct.CollectionTypeSchema {
       'api::fuehrerschein.fuehrerschein'
     >;
     geburtsdatum: Schema.Attribute.Date;
+    gehalts: Schema.Attribute.Relation<'oneToMany', 'api::gehalt.gehalt'>;
     hausnummer: Schema.Attribute.String;
+    lagerbewegungs: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::lagerbewegung.lagerbewegung'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1031,12 +1441,96 @@ export interface ApiPersonalPersonal extends Struct.CollectionTypeSchema {
     >;
     pid: Schema.Attribute.UID;
     plz: Schema.Attribute.String;
+    position: Schema.Attribute.Relation<'manyToOne', 'api::position.position'>;
     publishedAt: Schema.Attribute.DateTime;
+    qualifikations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::qualifikation.qualifikation'
+    >;
     strasse: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     vorname: Schema.Attribute.String;
+  };
+}
+
+export interface ApiPositionPosition extends Struct.CollectionTypeSchema {
+  collectionName: 'positions';
+  info: {
+    displayName: 'Position';
+    pluralName: 'positions';
+    singularName: 'position';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bezeichnung: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    gehalt: Schema.Attribute.Float &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    gehalts: Schema.Attribute.Relation<'oneToMany', 'api::gehalt.gehalt'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::position.position'
+    > &
+      Schema.Attribute.Private;
+    personals: Schema.Attribute.Relation<'oneToMany', 'api::personal.personal'>;
+    psid: Schema.Attribute.UID;
+    publishedAt: Schema.Attribute.DateTime;
+    sollzeit: Schema.Attribute.Float &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiQualifikationQualifikation
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'qualifikations';
+  info: {
+    displayName: 'Qualifikation';
+    pluralName: 'qualifikations';
+    singularName: 'qualifikation';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bezeichnung: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    erwerbsdatum: Schema.Attribute.Date & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::qualifikation.qualifikation'
+    > &
+      Schema.Attribute.Private;
+    personal: Schema.Attribute.Relation<'manyToOne', 'api::personal.personal'>;
+    publishedAt: Schema.Attribute.DateTime;
+    qfid: Schema.Attribute.UID;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1051,6 +1545,7 @@ export interface ApiStandortStandort extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    bestands: Schema.Attribute.Relation<'oneToMany', 'api::bestand.bestand'>;
     bezeichnung: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1116,6 +1611,42 @@ export interface ApiTankstelleTankstelle extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiVerbrauchsgutVerbrauchsgut
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'verbrauchsguts';
+  info: {
+    displayName: 'Verbrauchsgut';
+    pluralName: 'verbrauchsguts';
+    singularName: 'verbrauchsgut';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    aggregatszustand: Schema.Attribute.Enumeration<['fest', 'fluessig']>;
+    aktion_verbrauchsguts: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::aktion-verbrauchsgut.aktion-verbrauchsgut'
+    >;
+    aktions: Schema.Attribute.Relation<'manyToMany', 'api::aktion.aktion'>;
+    bezeichnung: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::verbrauchsgut.verbrauchsgut'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    vbgid: Schema.Attribute.UID;
   };
 }
 
@@ -1666,23 +2197,35 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::aktion-verbrauchsgut.aktion-verbrauchsgut': ApiAktionVerbrauchsgutAktionVerbrauchsgut;
+      'api::aktion.aktion': ApiAktionAktion;
       'api::aktivitaeten.aktivitaeten': ApiAktivitaetenAktivitaeten;
-      'api::aussaat.aussaat': ApiAussaatAussaat;
+      'api::angebot-artikel.angebot-artikel': ApiAngebotArtikelAngebotArtikel;
+      'api::angebot.angebot': ApiAngebotAngebot;
+      'api::arbeitszeit.arbeitszeit': ApiArbeitszeitArbeitszeit;
+      'api::artikel.artikel': ApiArtikelArtikel;
+      'api::auftrag.auftrag': ApiAuftragAuftrag;
       'api::ausstattung.ausstattung': ApiAusstattungAusstattung;
-      'api::duengung.duengung': ApiDuengungDuengung;
-      'api::ernte.ernte': ApiErnteErnte;
+      'api::bestand.bestand': ApiBestandBestand;
       'api::fahrt-standort.fahrt-standort': ApiFahrtStandortFahrtStandort;
       'api::fahrt.fahrt': ApiFahrtFahrt;
       'api::fahrzeug-standort.fahrzeug-standort': ApiFahrzeugStandortFahrzeugStandort;
       'api::fahrzeug-werkstatt.fahrzeug-werkstatt': ApiFahrzeugWerkstattFahrzeugWerkstatt;
       'api::fahrzeug.fahrzeug': ApiFahrzeugFahrzeug;
       'api::fahrzeugvermietung.fahrzeugvermietung': ApiFahrzeugvermietungFahrzeugvermietung;
+      'api::feld.feld': ApiFeldFeld;
       'api::fuehrerschein.fuehrerschein': ApiFuehrerscheinFuehrerschein;
+      'api::gehalt.gehalt': ApiGehaltGehalt;
+      'api::kunde.kunde': ApiKundeKunde;
+      'api::lagerbewegung.lagerbewegung': ApiLagerbewegungLagerbewegung;
       'api::modell.modell': ApiModellModell;
       'api::personal-tankstelle.personal-tankstelle': ApiPersonalTankstellePersonalTankstelle;
       'api::personal.personal': ApiPersonalPersonal;
+      'api::position.position': ApiPositionPosition;
+      'api::qualifikation.qualifikation': ApiQualifikationQualifikation;
       'api::standort.standort': ApiStandortStandort;
       'api::tankstelle.tankstelle': ApiTankstelleTankstelle;
+      'api::verbrauchsgut.verbrauchsgut': ApiVerbrauchsgutVerbrauchsgut;
       'api::werkstatt.werkstatt': ApiWerkstattWerkstatt;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

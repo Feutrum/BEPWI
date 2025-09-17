@@ -7,9 +7,14 @@
     "displayName": "Personal-Tankstelle"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false,
+    "privateAttributes": ["id", "created_at", "updated_at"]
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    }
+  },
   "attributes": {
     "ptid": {
       "type": "uid"

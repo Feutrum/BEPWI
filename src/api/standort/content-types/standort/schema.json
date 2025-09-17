@@ -40,6 +40,12 @@
       "relation": "oneToMany",
       "target": "api::fahrt-standort.fahrt-standort",
       "mappedBy": "standort"
+    },
+    "bestands": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bestand.bestand",
+      "mappedBy": "standort"
     }
   }
 }

@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "arbeitszeits",
+  "info": {
+    "singularName": "arbeitszeit",
+    "pluralName": "arbeitszeits",
+    "displayName": "Arbeitszeit"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "azid": {
+      "type": "uid"
+    },
+    "personal": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personal.personal",
+      "inversedBy": "arbeitszeits"
+    },
+    "von": {
+      "type": "datetime",
+      "required": true
+    },
+    "bis": {
+      "type": "datetime"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["urlaub", "krank", "geleistet", "geplant"],
+      "default": "geplant"
+    },
+    "stunden": {
+      "type": "float",
+      "min": 0
+    },
+    "taetigkeit": {
+      "type": "string"
+    },
+    "aktion": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::aktion.aktion",
+      "inversedBy": "arbeitszeits"
+    },
+    "bemerkung": {
+      "type": "text"
+    }
+  }
+}

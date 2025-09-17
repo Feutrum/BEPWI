@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "kundes",
+  "info": {
+    "singularName": "kunde",
+    "pluralName": "kundes",
+    "displayName": "Kunde"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "kid": {
+      "type": "uid"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "telefon": {
+      "type": "string"
+    },
+    "plz": {
+      "type": "string"
+    },
+    "ort": {
+      "type": "string"
+    },
+    "strasse": {
+      "type": "string"
+    },
+    "hausnummer": {
+      "type": "string"
+    },
+    "iban": {
+      "type": "string"
+    },
+    "angebots": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::angebot.angebot",
+      "mappedBy": "kunde"
+    }
+  }
+}

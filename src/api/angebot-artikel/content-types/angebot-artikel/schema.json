@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "angebot_artikels",
+  "info": {
+    "singularName": "angebot-artikel",
+    "pluralName": "angebot-artikels",
+    "displayName": "Angebot-Artikel"
+  },
+  "options": {
+    "draftAndPublish": false,
+    "privateAttributes": ["id", "created_at", "updated_at"]
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    }
+  },
+  "attributes": {
+    "aaid": {
+      "type": "uid"
+    },
+    "angebot": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::angebot.angebot",
+      "inversedBy": "angebot_artikels"
+    },
+    "artikel": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::artikel.artikel",
+      "inversedBy": "angebot_artikels"
+    },
+    "menge": {
+      "type": "float",
+      "required": true,
+      "min": 0
+    },
+    "einheit": {
+      "type": "enumeration",
+      "enum": ["kg", "liter", "tonnen", "stueck"],
+      "required": true
+    },
+    "einzelpreis": {
+      "type": "float",
+      "required": true,
+      "min": 0
+    },
+    "gesamtpreis": {
+      "type": "float",
+      "required": true,
+      "min": 0
+    }
+  }
+}

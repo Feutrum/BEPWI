@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "positions",
+  "info": {
+    "singularName": "position",
+    "pluralName": "positions",
+    "displayName": "Position"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "psid": {
+      "type": "uid"
+    },
+    "bezeichnung": {
+      "type": "string",
+      "required": true
+    },
+    "sollzeit": {
+      "type": "float",
+      "required": true,
+      "min": 0
+    },
+    "gehalt": {
+      "type": "float",
+      "required": true,
+      "min": 0
+    },
+    "personals": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::personal.personal",
+      "mappedBy": "position"
+    },
+    "gehalts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::gehalt.gehalt",
+      "mappedBy": "position"
+    }
+  }
+}
