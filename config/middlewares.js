@@ -4,6 +4,7 @@ module.exports = [
   'strapi::security',
   'strapi::cors',
   'global::business-validation',  // Business validation middleware
+  'global::rbac',                 // Role-based access control middleware
   'strapi::poweredBy',
   'strapi::query',
   'strapi::body',

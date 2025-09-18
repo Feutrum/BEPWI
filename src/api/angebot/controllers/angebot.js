@@ -3,6 +3,41 @@
 const { createCoreController } = require('@strapi/strapi').factories;
 
 module.exports = createCoreController('api::angebot.angebot', ({ strapi }) => ({
+    // Override find method to apply customer filtering
+    async find(ctx) {
+        const { user } = ctx.state;
+
+        // Apply customer filtering for customer role
+        if (user && user.role?.type === 'customer' && user.customer_id) {
+            ctx.query = {
+                ...ctx.query,
+                filters: {
+                    ...ctx.query.filters,
+                    kunde: user.customer_id
+                }
+            };
+        }
+
+        return super.find(ctx);
+    },
+
+    // Override findOne method to apply customer filtering
+    async findOne(ctx) {
+        const { user } = ctx.state;
+
+        if (user && user.role?.type === 'customer' && user.customer_id) {
+            // First check if the record belongs to the customer
+            const angebot = await strapi.entityService.findOne('api::angebot.angebot', ctx.params.id, {
+                populate: { kunde: true }
+            });
+
+            if (!angebot || angebot.kunde?.id !== user.customer_id) {
+                return ctx.forbidden('Access denied to this record');
+            }
+        }
+
+        return super.findOne(ctx);
+    },
     async convertToOrder(ctx) {
         strapi.log.info('[angebot.convertToOrder] hit');
         const angebotId = Number(ctx.params.id);
