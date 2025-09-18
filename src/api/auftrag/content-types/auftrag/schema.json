@@ -45,6 +45,12 @@
     },
     "bemerkungen": {
       "type": "text"
+    },
+    "lieferungs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lieferung.lieferung",
+      "mappedBy": "auftragskopf"
     }
   }
 }

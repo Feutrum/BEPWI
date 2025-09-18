@@ -9,8 +9,40 @@ module.exports = (config, { strapi }) => {
   return async (ctx, next) => {
     const { user } = ctx.state;
 
-    // Skip RBAC for admin users and public routes
-    if (!user || ctx.request.url.startsWith('/admin') || ctx.request.url.startsWith('/auth')) {
+    // Debug logging
+    if (ctx.request.url.includes('user') && ctx.method === 'PUT') {
+      console.log('[RBAC Debug] URL:', ctx.request.url);
+      console.log('[RBAC Debug] Path:', ctx.path);
+      console.log('[RBAC Debug] Method:', ctx.method);
+      console.log('[RBAC Debug] User:', user?.username);
+    }
+
+    // Skip RBAC for admin, content-manager, auth, and plugin routes
+    const skipPaths = [
+      '/admin',
+      '/content-manager',
+      '/auth',
+      '/users-permissions',
+      '/upload',
+      '/documentation',
+      '/_health'
+    ];
+
+    const shouldSkip = !user || skipPaths.some(path =>
+      ctx.request.url.startsWith(path) ||
+      ctx.request.url.includes(path + '/') ||
+      ctx.path.startsWith(path) ||
+      ctx.path.includes(path + '/')
+    );
+
+    if (shouldSkip) {
+      console.log('[RBAC] Skipping for:', ctx.request.url);
+      return await next();
+    }
+
+    // Only process API routes
+    if (!ctx.request.url.includes('/api/')) {
+      console.log('[RBAC] Not an API route, skipping:', ctx.request.url);
       return await next();
     }
 
@@ -19,6 +51,7 @@ module.exports = (config, { strapi }) => {
     const apiIndex = urlParts.indexOf('api');
 
     if (apiIndex === -1 || !urlParts[apiIndex + 1]) {
+      console.log('[RBAC] Invalid API route structure:', ctx.request.url);
       return await next();
     }
 
@@ -58,8 +91,8 @@ module.exports = (config, { strapi }) => {
 async function checkUserPermission(userRole, contentType, action, user, ctx) {
   // Role-based permission matrix
   const rolePermissions = {
-    // Farm Manager - Full access
-    'farm-manager': {
+    // Geschäftsleitung (Management) - Full access
+    'geschaeftsleitung': {
       'api::kunde.kunde': ['find', 'findOne', 'create', 'update', 'delete'],
       'api::personal.personal': ['find', 'findOne', 'create', 'update', 'delete'],
       'api::fahrzeug.fahrzeug': ['find', 'findOne', 'create', 'update', 'delete'],
@@ -75,27 +108,32 @@ async function checkUserPermission(userRole, contentType, action, user, ctx) {
       'api::lagerbewegung.lagerbewegung': ['find', 'findOne', 'create', 'update', 'delete'],
     },
 
-    // Office Staff - Administrative access to customer and sales
-    'office-staff': {
+    // HR-Mitarbeiter (HR Staff) - Personnel and administrative access
+    'hr-mitarbeiter': {
       'api::kunde.kunde': ['find', 'findOne', 'create', 'update'],
-      'api::personal.personal': ['find', 'findOne'],
+      'api::personal.personal': ['find', 'findOne', 'create', 'update', 'delete'],
       'api::fahrzeug.fahrzeug': ['find', 'findOne'],
       'api::artikel.artikel': ['find', 'findOne'],
       'api::bestand.bestand': ['find', 'findOne'],
       'api::angebot.angebot': ['find', 'findOne', 'create', 'update'],
       'api::auftrag.auftrag': ['find', 'findOne', 'create', 'update'],
-      'api::position.position': ['find', 'findOne'],
-      'api::qualifikation.qualifikation': ['find', 'findOne'],
+      'api::position.position': ['find', 'findOne', 'create', 'update', 'delete'],
+      'api::qualifikation.qualifikation': ['find', 'findOne', 'create', 'update', 'delete'],
+      'api::gehalt.gehalt': ['find', 'findOne', 'create', 'update', 'delete'],
+      'api::arbeitszeit.arbeitszeit': ['find', 'findOne', 'create', 'update', 'delete'],
     },
 
-    // Field Worker - Basic operational access
-    'field-worker': {
+    // Mitarbeiter (Employee) - Basic operational access
+    'mitarbeiter': {
       'api::fahrzeug.fahrzeug': ['find', 'findOne'],
       'api::artikel.artikel': ['find', 'findOne'],
       'api::bestand.bestand': ['find', 'findOne'],
       'api::feld.feld': ['find', 'findOne'],
-      'api::aktion.aktion': ['find', 'findOne', 'create'],
+      'api::aktion.aktion': ['find', 'findOne', 'create', 'update'],
       'api::lagerbewegung.lagerbewegung': ['find', 'findOne', 'create'],
+      'api::arbeitszeit.arbeitszeit': ['find', 'findOne', 'create', 'update'],
+      'api::personal.personal': ['find', 'findOne'], // Can view own profile
+      'api::gehalt.gehalt': ['find', 'findOne'], // Can view own salary
     },
 
     // Customer - External access to their own data

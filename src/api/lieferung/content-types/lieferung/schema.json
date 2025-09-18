@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lieferungs",
+  "info": {
+    "singularName": "lieferung",
+    "pluralName": "lieferungs",
+    "displayName": "Lieferung"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "lid": {
+      "type": "uid"
+    },
+    "auftragskopf": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::auftrag.auftrag",
+      "inversedBy": "lieferungs"
+    },
+    "lieferdatum": {
+      "type": "datetime",
+      "required": true
+    },
+    "lieferfahrer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::personal.personal",
+      "inversedBy": "lieferungs"
+    },
+    "fahrzeug": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::fahrzeug.fahrzeug",
+      "inversedBy": "lieferungs"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["geplant", "unterwegs", "geliefert", "storniert"],
+      "default": "geplant"
+    },
+    "bemerkung": {
+      "type": "text"
+    }
+  }
+}

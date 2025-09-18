@@ -29,6 +29,11 @@
     "tuev": {
       "type": "date"
     },
+    "status": {
+      "type": "enumeration",
+      "enum": ["verfügbar", "im_einsatz", "wartung", "defekt"],
+      "default": "verfügbar"
+    },
     "ausstattungs": {
       "type": "relation",
       "relation": "manyToMany",
@@ -63,6 +68,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::auftrag.auftrag",
+      "mappedBy": "fahrzeug"
+    },
+    "lieferungs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lieferung.lieferung",
       "mappedBy": "fahrzeug"
     }
   }

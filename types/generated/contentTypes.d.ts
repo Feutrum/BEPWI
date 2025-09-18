@@ -772,6 +772,10 @@ export interface ApiAuftragAuftrag extends Struct.CollectionTypeSchema {
     fahrer: Schema.Attribute.Relation<'manyToOne', 'api::personal.personal'>;
     fahrzeug: Schema.Attribute.Relation<'manyToOne', 'api::fahrzeug.fahrzeug'>;
     lieferdatum: Schema.Attribute.DateTime;
+    lieferungs: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::lieferung.lieferung'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1063,6 +1067,10 @@ export interface ApiFahrzeugFahrzeug extends Struct.CollectionTypeSchema {
     fzid: Schema.Attribute.UID;
     gewicht: Schema.Attribute.Integer;
     kennzeichen: Schema.Attribute.String;
+    lieferungs: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::lieferung.lieferung'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1071,6 +1079,10 @@ export interface ApiFahrzeugFahrzeug extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     modell: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      ['verf\u00FCgbar', 'im_einsatz', 'wartung', 'defekt']
+    > &
+      Schema.Attribute.DefaultTo<'verf\u00FCgbar'>;
     tuev: Schema.Attribute.Date;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1308,6 +1320,49 @@ export interface ApiLagerbewegungLagerbewegung
   };
 }
 
+export interface ApiLieferungLieferung extends Struct.CollectionTypeSchema {
+  collectionName: 'lieferungs';
+  info: {
+    displayName: 'Lieferung';
+    pluralName: 'lieferungs';
+    singularName: 'lieferung';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    auftragskopf: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::auftrag.auftrag'
+    >;
+    bemerkung: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    fahrzeug: Schema.Attribute.Relation<'manyToOne', 'api::fahrzeug.fahrzeug'>;
+    lid: Schema.Attribute.UID;
+    lieferdatum: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    lieferfahrer: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::personal.personal'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::lieferung.lieferung'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      ['geplant', 'unterwegs', 'geliefert', 'storniert']
+    > &
+      Schema.Attribute.DefaultTo<'geplant'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiModellModell extends Struct.CollectionTypeSchema {
   collectionName: 'modells';
   info: {
@@ -1426,6 +1481,10 @@ export interface ApiPersonalPersonal extends Struct.CollectionTypeSchema {
     lagerbewegungs: Schema.Attribute.Relation<
       'oneToMany',
       'api::lagerbewegung.lagerbewegung'
+    >;
+    lieferungs: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::lieferung.lieferung'
     >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -2218,6 +2277,7 @@ declare module '@strapi/strapi' {
       'api::gehalt.gehalt': ApiGehaltGehalt;
       'api::kunde.kunde': ApiKundeKunde;
       'api::lagerbewegung.lagerbewegung': ApiLagerbewegungLagerbewegung;
+      'api::lieferung.lieferung': ApiLieferungLieferung;
       'api::modell.modell': ApiModellModell;
       'api::personal-tankstelle.personal-tankstelle': ApiPersonalTankstellePersonalTankstelle;
       'api::personal.personal': ApiPersonalPersonal;

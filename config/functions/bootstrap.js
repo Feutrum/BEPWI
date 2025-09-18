@@ -6,40 +6,28 @@
  */
 
 module.exports = async () => {
-  // Set up RBAC first
-  const rbacSetup = require('../../src/bootstrap/rbac-setup');
-  await rbacSetup();
+  try {
+    // Set up RBAC first
+    const rbacSetup = require('../../src/bootstrap/rbac-setup');
+    await rbacSetup();
 
-  // Check if data already exists to avoid duplicates
-  const customerCount = await strapi.entityService.count('api::kunde.kunde');
+    // Check if data already exists to avoid duplicates
+    const customerCount = await strapi.entityService.count('api::kunde.kunde');
 
-  if (customerCount > 0) {
-    console.log('Database already has data, skipping seed...');
-    return;
+    if (customerCount > 0) {
+      console.log('Database already has data, skipping seed...');
+      return;
+    }
+
+    console.log('🌱 Seeding database with dummy data...');
+  } catch (error) {
+    console.error('❌ Error in bootstrap setup:', error);
   }
 
-  console.log('🌱 Seeding database with dummy data...');
-
   try {
-    // Seed customers
-    await seedCustomers();
-
-    // Seed personnel and positions
-    await seedPersonnel();
-
-    // Seed vehicles and models
-    await seedVehicles();
-
-    // Seed articles and stock
-    await seedInventory();
-
-    // Seed fields
-    await seedFields();
-
-    // Seed offers and orders
-    await seedSales();
-
-    console.log('✅ Database seeded successfully!');
+    // Use direct seeding to bypass API authentication
+    const directSeed = require('../../scripts/direct-seed');
+    await directSeed();
   } catch (error) {
     console.error('❌ Error seeding database:', error);
   }

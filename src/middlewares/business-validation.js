@@ -18,8 +18,8 @@ module.exports = (config, { strapi }) => {
   return async (ctx, next) => {
     strapi.log.info('[business-validation] Processing request:', ctx.method, ctx.path);
 
-    // Skip admin routes
-    if (ctx.path.startsWith('/admin')) {
+    // Skip admin and content-manager routes
+    if (ctx.path.startsWith('/admin') || ctx.path.startsWith('/content-manager')) {
       return await next();
     }
 
